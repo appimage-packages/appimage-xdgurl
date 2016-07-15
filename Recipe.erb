@@ -96,7 +96,8 @@ rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 cd ..
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
-make_dirs
+mkdir -p $APP/$APP.AppDir
+cd $APP
 extract_packages
 patch_usr
 copy_desktop
@@ -104,6 +105,6 @@ make_apprun_skel
 echo "./bin/xdgurl $@" >> AppRun
 cd -
 get_assistant
-make_appdir "${APPNAME}" "${VERSION}"
+make_appdir "${APP}" "${VERSION}"
 
 
