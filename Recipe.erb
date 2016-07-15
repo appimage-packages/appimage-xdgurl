@@ -131,8 +131,10 @@ if [ "$VERSION" == "" ] ; then
   exit 1
 fi
 
+which xdgurl
+
 make_apprun_skel
-echo "./bin/xdgurl $@" >> AppRun
+echo "./usr/bin/xdgurl $@" >> AppRun
 get_assistant
 make_appdir "${APP}" "${VERSION}"
 
