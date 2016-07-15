@@ -16,7 +16,7 @@ cat > ./AppRun <<\EOF
 
 # Base environment variables
 export LD_LIBRARY_PATH=${APPDIR}/lib:${LD_LIBRARY_PATH}
-export PATH=${APPDIR}/bin:${PATH}
+export PATH=/opt/rh/python27/root/usr/bin/:/opt/python3.5/bin:$PATH
 export XDG_DATA_DIRS=${APPDIR}/share:${XDG_DATA_DIRS}
 # GTK+/GIO/GdkPixbuf environment variables
 # http://askubuntu.com/questions/251712/how-can-i-install-a-gsettings-schema-without-root-privileges
