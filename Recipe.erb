@@ -81,7 +81,7 @@ cd ..
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 cd ..
-mkdir -p $APP/$APP.AppDir
+mkdir -p $APP.AppDir
 cd "${APP}.AppDir"
 extract_packages
 patch_usr
