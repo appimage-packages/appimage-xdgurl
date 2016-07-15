@@ -64,7 +64,7 @@ cd ..
 }
 
 function make_appdir {
-  /AppImageKit/AppImageAssistant.AppDir/package $APP.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+  /AppImageKit/AppImageAssistant.AppDir/package $APPDIR /out/$APP-$VERSION-$ARCH.AppImage
 }
 
 #deps
@@ -78,11 +78,8 @@ sh build.sh
 rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 
 
-cd ..
-
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
-mkdir -p $APP/$APP.AppDir
-cd $APP
+
 rm -rf /app /out || true # Clean up from previous runs
 mkdir -p /app/usr/bin /app/usr/lib /out
 
