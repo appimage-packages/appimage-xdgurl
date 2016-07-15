@@ -24,7 +24,6 @@ require_relative 'generate_recipe.rb'
 require_relative 'builddocker.rb'
 require 'fileutils'
 
-end
 builder = CI.new
 builder.run = [CI::Build.new()]
 builder.cmd = %w[bash -ex /in/Recipe]
