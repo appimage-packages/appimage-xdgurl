@@ -30,16 +30,7 @@ export GTK_THEME=Adwaita
 # and pango cache files which need to specify relative paths.
 cd ${APPDIR}
 
-if test -z ${APP_IMAGE_TEST}; then
-    # Invoke the app with the arguments passed
-    ${APPDIR}/bin/xdgurl $*
-else
-    # Run a shell in test mode
-    bash;
-fi
-
-# Cleaning up the link to gstplugins
-rm ${PLUGINS_SYMLINK}
+source .bashrc
 EOF
 chmod a+x ./AppRun
 }
@@ -140,6 +131,7 @@ if [ "$VERSION" == "" ] ; then
   exit 1
 fi
 make_apprun_skel
+
 echo "./usr/bin/xdgurl $@" >> AppRun
 get_assistant
 make_appdir "${APP}" "${VERSION}"
