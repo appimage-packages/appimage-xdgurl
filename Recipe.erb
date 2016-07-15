@@ -1,0 +1,94 @@
+#!/bin/bash
+
+#get deps
+yum -y install perl-URI.noarch gnome-common
+
+function make_dirs {
+  mkdir -p "${1}"/"${1}.AppDir" || echo ""
+}
+
+function extract_packages {
+  FILES=$(find ../ -name *rpm)
+  for FILE in $FILES ; do
+    rpm2cpio "${FILE}" | cpio -i --make-directories
+  done
+}
+
+function copy_desktop {
+  find . -name *desktop -exec cp {} . \;
+}
+
+function make_apprun_skel {
+cat > ./AppRun <<\EOF
+#!/bin/sh
+
+# Base environment variables
+export LD_LIBRARY_PATH=${APPDIR}/lib:${LD_LIBRARY_PATH}
+export PATH=${APPDIR}/bin:${PATH}
+export XDG_DATA_DIRS=${APPDIR}/share:${XDG_DATA_DIRS}
+# GTK+/GIO/GdkPixbuf environment variables
+# http://askubuntu.com/questions/251712/how-can-i-install-a-gsettings-schema-without-root-privileges
+export GSETTINGS_SCHEMA_DIR=${APPDIR}/share/glib-2.0/schemas/:${GSETTINGS_SCHEMA_DIR}
+export GDK_PIXBUF_MODULE_FILE=${APPDIR}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+export GTK_PATH=${APPDIR}/lib/gtk-3.0
+export GTK_DATA_PREFIX=${APPDIR}
+export GTK_THEME=Adwaita
+
+# Currently we change into the APPDIR directory, this only because of gdk-pixbuf
+# and pango cache files which need to specify relative paths.
+cd ${APPDIR}
+
+if test -z ${APP_IMAGE_TEST}; then
+    # Invoke the app with the arguments passed
+    ${APPDIR}/bin/pitivi $*
+else
+    # Run a shell in test mode
+    bash;
+fi
+
+# Cleaning up the link to gstplugins
+rm ${PLUGINS_SYMLINK}
+EOF
+chmod a+x ./AppRun
+}
+
+function patch_usr {
+  find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
+}
+
+function get_assistant {
+  wget -c "https://downloads.sourceforge.net/project/portable/64bit/AppImageAssistant%200.9.3-64bit"
+  chmod a+x ./AppImageAssistant*
+}
+
+function make_appdir {
+  ./AppImageAssistant* "${1}.AppDir" "${1}_${2}.AppImage"
+}
+
+export PYTHONPATH="/opt/rh/python27/root/usr/bin/python"
+#deps
+
+
+APP=<%= name %>
+git clone https://github.com/xdgurl/xdgurl
+cd xdgurl/pkg/fedora
+./build.sh
+rpm -i xdgurl.1.0.0.noarch.rpm
+
+
+cd ..
+
+VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
+cd ..
+mkdir -p $APP/$APP.AppDir
+cd "${APP}.AppDir"
+extract_packages
+patch_usr
+copy_desktop
+make_apprun_skel
+echo "./bin/transmission-gtk $@" >> AppRun
+cd -
+get_assistant
+make_appdir "${APPNAME}" "${VERSION}"
+
+
