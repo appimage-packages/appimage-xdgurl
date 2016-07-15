@@ -8,7 +8,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter gnome-icon-theme
+yum -y install perl-URI.noarch gnome-common rpm-build python27-tkinter tkinter gnome-icon-theme
 
 function make_apprun_skel {
 cat > ./AppRun <<\EOF
