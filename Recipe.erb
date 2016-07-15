@@ -31,6 +31,8 @@ export GTK_THEME=Adwaita
 cd ${APPDIR}
 
 source .bashrc
+
+python /usr/bin/xdgurl $@
 EOF
 chmod a+x ./AppRun
 }
@@ -131,8 +133,6 @@ if [ "$VERSION" == "" ] ; then
   exit 1
 fi
 make_apprun_skel
-
-echo "./usr/bin/xdgurl $@" >> AppRun
 get_assistant
 make_appdir "${APP}" "${VERSION}"
 
