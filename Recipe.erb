@@ -9,7 +9,7 @@ rm -f functions.sh
 yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter glib2-devel
 
 function make_dirs {
-  mkdir -p "${1}"/"${1}.AppDir" || echo ""
+  mkdir -p $APP/$APP.AppDir" || echo ""
 }
 
 function extract_packages {
