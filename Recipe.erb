@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #get deps
-yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter
+yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter glib2-devel
 
 function make_dirs {
   mkdir -p "${1}"/"${1}.AppDir" || echo ""
@@ -87,7 +87,7 @@ extract_packages
 patch_usr
 copy_desktop
 make_apprun_skel
-echo "./bin/transmission-gtk $@" >> AppRun
+echo "./bin/xdgurl $@" >> AppRun
 cd -
 get_assistant
 make_appdir "${APPNAME}" "${VERSION}"
