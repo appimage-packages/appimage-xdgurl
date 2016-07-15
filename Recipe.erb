@@ -10,21 +10,6 @@ rm -f functions.sh
 #get deps
 yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter glib2-devel
 
-function make_dirs {
-  mkdir -p $APP.AppDir || echo ""
-}
-
-function extract_packages {
-  FILES=$(find ../ -name *rpm)
-  for FILE in $FILES ; do
-    rpm2cpio "${FILE}" | cpio -i --make-directories
-  done
-}
-
-function copy_desktop {
-  find . -name *desktop -exec cp {} . \;
-}
-
 function make_apprun_skel {
 cat > ./AppRun <<\EOF
 #!/bin/sh
@@ -47,7 +32,7 @@ cd ${APPDIR}
 
 if test -z ${APP_IMAGE_TEST}; then
     # Invoke the app with the arguments passed
-    ${APPDIR}/bin/pitivi $*
+    ${APPDIR}/bin/xdgurl $*
 else
     # Run a shell in test mode
     bash;
@@ -79,7 +64,7 @@ cd ..
 }
 
 function make_appdir {
-  /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+  /AppImageKit/AppImageAssistant.AppDir/package $APP.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
 }
 
 #deps
@@ -98,9 +83,55 @@ cd ..
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 mkdir -p $APP/$APP.AppDir
 cd $APP
-extract_packages
-patch_usr
-copy_desktop
+rm -rf /app /out || true # Clean up from previous runs
+mkdir -p /app/usr/bin /app/usr/lib /out
+
+APPDIR=/app/
+cd $APPDIR
+
+# CentOS 6 places stuff in lib64 where AppRun doesn't find it
+ln -s ./lib ./usr/lib64
+ln -s ./lib ./usr/lib32
+
+FILES=$(rpm -qla $APP)
+for FILE in $FILES ; do
+  if [ -f $FILE ] ; then
+    echo $FILE
+    cp --parents -rfL $FILE ./
+  fi
+done
+
+# Copy in the indirect dependencies
+FILES=$(find . -type f -executable)
+DEPS=""
+for FILE in $FILES ; do
+  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' > DEPSFILE
+done
+DEPS=$(cat DEPSFILE  |sort | uniq)
+for FILE in $DEPS ; do
+  if [ -f $FILE ] ; then
+    echo $FILE
+    cp --parents -rfL $FILE ./
+  fi
+done
+rm -f DEPSFILE
+
+# We want everything in usr/ inside the AppDir
+mv lib*/* usr/lib/ || true
+rm -rf ./lib* || true
+
+# Copy desktop file in place
+DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
+cp $DESKTOP .
+
+VERSION=$(rpm -qa | grep ^$APP- | cut -d - -f 2)
+echo $VERSION
+
+if [ "$VERSION" == "" ] ; then
+  echo "Cannot determine version from rpm"
+  exit 1
+fi
+
 make_apprun_skel
 echo "./bin/xdgurl $@" >> AppRun
 cd -
