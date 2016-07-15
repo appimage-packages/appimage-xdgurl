@@ -12,7 +12,7 @@ yum -y install perl-URI.noarch gnome-common rpm-build python27-tkinter rh-python
 
 function make_apprun_skel {
 cat > ./AppRun <<\EOF
-#!/bin/sh
+#!/bin/bash
 
 # Base environment variables
 export LD_LIBRARY_PATH=${APPDIR}/lib:${LD_LIBRARY_PATH}
