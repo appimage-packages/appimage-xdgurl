@@ -62,15 +62,15 @@ function make_appdir {
 
 #deps
 
+VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
 cd ..
 sh build.sh fedora
-rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
+rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-$VERSION.el6.x86_64.rpm
 
 
-VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 
 rm -rf /app || true # Clean up from previous runs
 rm /out/* || true
