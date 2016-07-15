@@ -79,6 +79,7 @@ rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 
 rm -rf /app || true # Clean up from previous runs
+rm /out/* || true
 mkdir -p /app/usr/bin /app/usr/lib /out
 
 APPDIR=/app/
