@@ -69,8 +69,6 @@ function make_appdir {
 
 #deps
 
-
-
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
 sed  -i s/python3-tkinter/rh-python34-python-tkinter/g xdgurl.spec
@@ -80,13 +78,13 @@ rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 
-rm -rf /app /out || true # Clean up from previous runs
+rm -rf /app || true # Clean up from previous runs
 mkdir -p /app/usr/bin /app/usr/lib /out
 
 APPDIR=/app/
 cd $APPDIR
 
-cp ./usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
+cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
 
 # CentOS 6 places stuff in lib64 where AppRun doesn't find it
 ln -s ./lib ./usr/lib64
