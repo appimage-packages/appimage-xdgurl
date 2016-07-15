@@ -30,7 +30,6 @@ export GTK_THEME=Adwaita
 # and pango cache files which need to specify relative paths.
 cd ${APPDIR}
 
-<%= name %> \$@
 EOF
 chmod a+x ./AppRun
 }
@@ -132,6 +131,7 @@ if [ "$VERSION" == "" ] ; then
 fi
 make_apprun_skel
 get_assistant
+echo "./usr/bin/xdgurl $@" >> AppRun
 make_appdir "${APP}" "${VERSION}"
 
 
