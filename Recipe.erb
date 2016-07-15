@@ -30,9 +30,7 @@ export GTK_THEME=Adwaita
 # and pango cache files which need to specify relative paths.
 cd ${APPDIR}
 
-source .bashrc
-
-/usr/bin/xdgurl $@
+<%= name %> \$@
 EOF
 chmod a+x ./AppRun
 }
