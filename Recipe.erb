@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Get helper functions
+wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
+. ./functions.sh
+rm -f functions.sh
+
 #get deps
 yum -y install perl-URI.noarch gnome-common rpm-build rh-python34-python-tkinter tkinter glib2-devel
 
