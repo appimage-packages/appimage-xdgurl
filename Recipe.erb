@@ -88,8 +88,8 @@ cd $APPDIR
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
 
 # CentOS 6 places stuff in lib64 where AppRun doesn't find it
-ln -s ./lib ./usr/lib64
-ln -s ./lib ./usr/lib32
+ln -s ./usr/lib ./usr/lib64
+ln -s ./usr/lib ./usr/lib32
 
 FILES=$(rpm -qla $APP)
 for FILE in $FILES ; do
@@ -117,6 +117,8 @@ rm -f DEPSFILE
 # We want everything in usr/ inside the AppDir
 mv lib*/* usr/lib/ || true
 rm -rf ./lib* || true
+
+ls -l /usr/lib/python2.7/
 
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
