@@ -57,15 +57,22 @@ function patch_usr {
 }
 
 function get_assistant {
-  wget -c "https://downloads.sourceforge.net/project/portable/64bit/AppImageAssistant%200.9.3-64bit"
-  chmod a+x ./AppImageAssistant*
+  # Build AppImageKit
+if [ ! -d AppImageKit ] ; then
+  git clone  --depth 1 https://github.com/probonopd/AppImageKit.git /AppImageKit
+fi
+
+cd /AppImageKit/
+git_pull_rebase_helper
+./build.sh
+
+chmod a+x ./AppImageAssistant*
 }
 
 function make_appdir {
-  ./AppImageAssistant* "${1}.AppDir" "${1}_${2}.AppImage"
+  /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
 }
 
-export PYTHONPATH="/opt/rh/python27/root/usr/bin/python"
 #deps
 
 
