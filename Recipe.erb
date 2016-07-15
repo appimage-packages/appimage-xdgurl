@@ -69,7 +69,7 @@ VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
 cd ..
 sh build.sh fedora
-rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-$VERSION.el6.x86_64.rpm
+rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-$VERSION.el6.x86_64.rpm
 
 
 
