@@ -62,9 +62,10 @@ function make_appdir {
 
 #deps
 
-VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
+
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
+VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
 cd ..
 sh build.sh fedora
