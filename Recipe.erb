@@ -72,7 +72,7 @@ export PYTHONPATH="/opt/rh/python27/root/usr/bin/python"
 APP=<%= name %>
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
-./build.sh
+sh build.sh
 rpm -i xdgurl.1.0.0.noarch.rpm
 
 
