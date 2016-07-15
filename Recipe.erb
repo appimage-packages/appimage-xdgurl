@@ -64,11 +64,16 @@ function make_appdir {
 
 
 git clone https://github.com/xdgurl/xdgurl
-cd xdgurl/pkg/fedora
+cd xdgurl/src
+sed -i s#/usr/bin/env\spython#/opt/rh/python27/root/usr/bin/python#g xdgurl.py
+cd ../../xdgurl/pkg/fedora
+
+
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
 cd ..
 sh build.sh fedora
+
 rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-1.0.1-1.el6.x86_64.rpm
 
 
@@ -113,13 +118,6 @@ rm -f DEPSFILE
 mv lib*/* usr/lib/ || true
 rm -rf ./lib* || true
 
-ls -l /opt/rh/python27/root/usr/lib64
-
-cat  >> .bashrc <<\EOF
-
-alias python=/opt/rh/python27/root/usr/bin/python
-
-EOF
 
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
