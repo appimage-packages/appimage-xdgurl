@@ -118,7 +118,13 @@ rm -f DEPSFILE
 mv lib*/* usr/lib/ || true
 rm -rf ./lib* || true
 
-ls -l /usr/lib64/python2.6/
+ls -l /opt/rh/python27/root/usr/lib64
+
+cat  >> .bashrc <<\EOF
+
+alias python=/opt/rh/python27/root/usr/bin/python
+
+EOF
 
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
@@ -133,9 +139,6 @@ if [ "$VERSION" == "" ] ; then
   echo "Cannot determine version from rpm"
   exit 1
 fi
-
-which xdgurl
-
 make_apprun_skel
 echo "./usr/bin/xdgurl $@" >> AppRun
 get_assistant
