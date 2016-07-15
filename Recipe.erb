@@ -65,7 +65,8 @@ function make_appdir {
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
-sh build.sh
+cd ..
+sh build.sh fedora
 rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 
 
