@@ -96,6 +96,7 @@ rpm -i /root/rpmbuild/RPMS/x86_64/xdgurl-1.0.0-1.el6.x86_64.rpm
 cd ..
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
+make_dirs
 extract_packages
 patch_usr
 copy_desktop
