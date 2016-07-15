@@ -1,5 +1,7 @@
 #!/bin/bash
 
+APP=<%= name %>
+
 # Get helper functions
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
@@ -83,7 +85,7 @@ function make_appdir {
 #deps
 
 
-APP=<%= name %>
+
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/pkg/fedora
 sed  -i s/python3-tkinter/rh-python34-python-tkinter/g xdgurl.spec
