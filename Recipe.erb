@@ -116,6 +116,8 @@ mv lib*/* usr/lib/ || true
 rm -rf ./lib* || true
 
 
+delete_blacklisted
+
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
 cp $DESKTOP .
@@ -129,6 +131,11 @@ if [ "$VERSION" == "" ] ; then
   echo "Cannot determine version from rpm"
   exit 1
 fi
+
+# Add desktop integration
+get_desktopintegration <%= name %>
+
+
 make_apprun_skel
 get_assistant
 echo "./usr/bin/xdgurl $@" >> AppRun
