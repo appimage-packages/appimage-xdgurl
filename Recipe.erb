@@ -58,7 +58,7 @@ cd $APPDIR
 ln -s ./usr/lib ./usr/lib64
 ln -s ./usr/lib ./usr/lib32
 
-FILES=$(rpm -qla $APP)
+FILES=$(rpm -qla $LOWERAPP)
 for FILE in $FILES ; do
   if [ -f $FILE ] ; then
     echo $FILE
@@ -96,8 +96,31 @@ fi
 get_apprun
 get_assistant
 ARCH=$(arch)
+cd /app
 
-ls -l
+cp -ru /usr/share/mime/* /app/usr/share/mime
+update-mime-database /app/usr/share/mime/
+
+copy_deps
+mv usr/bin/* /app/usr/bin/
+mv lib64/* usr/lib/
+rm -rf lib64/
+rm  -rf ./opt/
+rm -rf app/
+
+delete_blacklisted
+
+# We don't bundle the developer stuff
+rm -rf usr/include || true
+rm -rf usr/lib/pkgconfig || true
+rm -rf usr/share/gettext || true
+rm -rf usr/share/pkgconfig || true
+rm -rf rm -rf ./usr/mkspecs/ || true
+find . -name '*.a' -exec rm {} \;
+
+strip -g $(find usr) || true
+
+
 
 
 cd /
