@@ -95,10 +95,6 @@ if [ "$VERSION" == "" ] ; then
   exit 1
 fi
 
-# Add desktop integration
-get_desktopintegration <%= name %>
-
-
 get_apprun
 get_assistant
 ARCH=$(arch)
@@ -112,6 +108,9 @@ echo Icon=emblem-web.svg >> $LOWERAPP.desktop
 cat $LOWERAPP.desktop
 VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
+
+# Add desktop integration
+get_desktopintegration <%= name %>
 
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
