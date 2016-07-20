@@ -139,7 +139,7 @@ mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
-mv ../app/* /usr/bin/$LOWERAPP.wrapper $APP.AppDir/
+mv ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  $APP.AppDir/
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
