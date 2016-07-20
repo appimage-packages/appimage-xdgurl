@@ -10,7 +10,7 @@ rm -f functions.sh
 
 #get deps
 yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme rh-python34-python-tkinter \
- python27-tkinter tkinter wxPython rh-python34 rh-python27
+ python27-tkinter tkinter wxPython rh-python34 python27
 
 function patch_usr {
   find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
@@ -110,10 +110,10 @@ update-mime-database /app/usr/share/mime/
 
 copy_deps
 mv /lib64/*  /app/lib/
-mv opt/rh/* /app/opt/rh/
-rm -rf lib64/
+mv /opt/rh/* /app/opt/rh/
+rm -rf /lib64/
 rm  -rf ./opt/
-rm -rf app/
+
 
 delete_blacklisted
 
