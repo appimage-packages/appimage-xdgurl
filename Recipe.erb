@@ -1,6 +1,7 @@
 #!/bin/bash
 
-APP=<%= name %>
+APP=<%= proper_name %>
+LOWERAPP=<%= name %>
 
 # Get helper functions
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
@@ -95,9 +96,9 @@ delete_blacklisted
 
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
-cp $DESKTOP .
+cp $DESKTOP . || true
 
-echo Icon=emblem-web.svg >> $APP.desktop
+echo Icon=emblem-web.svg >> $LOWERAPP.desktop
 
 VERSION=$(rpm -qa | grep ^$APP- | cut -d - -f 2)
 echo $VERSION
@@ -121,5 +122,5 @@ mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
 mv ../app/* $APP.AppDir/
-ls -l
+
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
