@@ -8,7 +8,8 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme
+yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme rh-python34-python-tkinter \
+ python27-tkinter tkinter wxPython rh-python34 rh-python27
 
 function patch_usr {
   find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
@@ -112,5 +113,5 @@ get_desktopintegration <%= name %>
 
 get_apprun
 get_assistant
-echo "./usr/bin/xdgurl $@" >> AppRun
-make_appdir "${APP}" "${VERSION}"
+ARCH=$(arch)
+generate_appimage
