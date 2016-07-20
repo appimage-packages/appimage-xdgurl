@@ -54,8 +54,6 @@ mkdir -p /app/usr/bin /app/usr/lib /out
 APPDIR=/app/
 cd $APPDIR
 
-cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
-
 # CentOS 6 places stuff in lib64 where AppRun doesn't find it
 ln -s ./usr/lib ./usr/lib64
 ln -s ./usr/lib ./usr/lib32
@@ -119,4 +117,5 @@ cd /$APP/
 
 mv ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop .
+cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
