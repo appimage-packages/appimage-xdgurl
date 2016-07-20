@@ -106,7 +106,6 @@ cp -rfv /etc /app/etc
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
-mv $LOWERAPP.wrapper /app/usr/bin/
 mv /opt/rh/* /app/opt/rh/
 rm  -rf ./opt/
 
@@ -136,7 +135,7 @@ VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
 # Add desktop integration
 get_desktopintegration <%= name %>
-
+mv $LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
