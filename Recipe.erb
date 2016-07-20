@@ -49,14 +49,10 @@ rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-1.0.1-1.el6.x86_64.rpm
 
 rm -rf /app || true # Clean up from previous runs
 rm /out/* || true
-mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime /out
+mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime /app/opt/rh /out
 
 APPDIR=/app/
 cd $APPDIR
-
-# CentOS 6 places stuff in lib64 where AppRun doesn't find it
-ln -s ./usr/lib ./usr/lib64
-ln -s ./usr/lib ./usr/lib32
 
 FILES=$(rpm -qla $LOWERAPP)
 for FILE in $FILES ; do
@@ -82,7 +78,7 @@ done
 rm -f DEPSFILE
 
 # We want everything in usr/ inside the AppDir
-mv lib*/* usr/lib/ || true
+mv lib/* usr/lib/ || true
 rm -rf ./lib* || true
 
 
@@ -93,7 +89,9 @@ if [ "$VERSION" == "" ] ; then
   exit 1
 fi
 
-get_apprun
+#!/bin/bash
+HERE="$(dirname "$(readlink -f "${0}")")"
+PYTHONPATH="${HERE}"/usr/share/pyshared:"$PYTHONPATH" LD_LIBRARY_PATH="${HERE}/usr/lib/:${LD_LIBRARY_PATH}" PATH="${HERE}/:${PATH}" exec "${HERE}"/AppImageAssistant "$@"
 get_assistant
 ARCH=$(arch)
 cd /app
@@ -102,7 +100,8 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
-mv lib64/* usr/lib/
+mv /lib64/*  /app/lib/
+mv opt/rh/* /app/opt/rh/
 rm -rf lib64/
 rm  -rf ./opt/
 rm -rf app/
@@ -137,7 +136,7 @@ get_desktopintegration <%= name %>
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
-mv ../app/* $APP.AppDir/
+mv ../app/* /usr/bin/$LOWERAPP.wrapper $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  $APP.AppDir/
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
