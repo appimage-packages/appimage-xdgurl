@@ -90,15 +90,6 @@ rm -rf ./lib* || true
 
 delete_blacklisted
 
-# Copy desktop file in place
-DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
-cp $DESKTOP . || true
-
-echo Icon=emblem-web.svg >> $LOWERAPP.desktop
-cat $LOWERAPP.desktop
-VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
-echo $VERSION
-
 if [ "$VERSION" == "" ] ; then
   echo "Cannot determine version from rpm"
   exit 1
@@ -113,6 +104,14 @@ get_assistant
 ARCH=$(arch)
 
 cd /
+# Copy desktop file in place
+DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
+cp $DESKTOP . || true
+
+echo Icon=emblem-web.svg >> $LOWERAPP.desktop
+cat $LOWERAPP.desktop
+VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
+echo $VERSION
 
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
