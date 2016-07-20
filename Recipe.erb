@@ -114,4 +114,11 @@ get_desktopintegration <%= name %>
 get_apprun
 get_assistant
 ARCH=$(arch)
+
+cd /
+
+mkdir -p /$APP/$APP.AppDir
+cd /$APP/
+
+mv ../app/* $APP.AppDir/
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
