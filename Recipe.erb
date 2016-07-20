@@ -107,7 +107,7 @@ cd /
 DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
 cp $DESKTOP . || true
 echo $DESKTOP
-echo Icon=emblem-web.svg >> $LOWERAPP.desktop
+echo Icon=emblem-web >> $LOWERAPP.desktop
 cat $LOWERAPP.desktop
 VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
