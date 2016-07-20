@@ -49,7 +49,7 @@ rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-1.0.1-1.el6.x86_64.rpm
 
 rm -rf /app || true # Clean up from previous runs
 rm /out/* || true
-mkdir -p /app/usr/bin /app/usr/lib /out
+mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime /out
 
 APPDIR=/app/
 cd $APPDIR
