@@ -105,17 +105,17 @@ get_assistant
 ARCH=$(arch)
 cd /app
 
+delete_blacklisted
+
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
 mkdir -p /app/lib
-cp /lib64/*  /app/lib/
+cp -rfv /lib64/*  /app/lib/
 mv /opt/rh/* /app/opt/rh/
 rm  -rf ./opt/
 
-
-delete_blacklisted
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
