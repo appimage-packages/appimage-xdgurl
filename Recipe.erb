@@ -99,9 +99,9 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
-mkdir -p /app/lib /app/share
+mkdir -p /app/lib /app/usr/share
 cp -rfv /lib64/*  /app/lib/
-cp -rfv /share /app/share
+cp -rfv /usr/share /app/usr/share
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
