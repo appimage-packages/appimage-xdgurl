@@ -91,7 +91,7 @@ fi
 cat > AppRun << EOF
 #!/bin/bash
 HERE="$(dirname "$(readlink -f "${0}")")"
-PYTHONPATH="${HERE}"/opt/rh/python27:"$PYTHONPATH" LD_LIBRARY_PATH="${HERE}/usr/lib/:${LD_LIBRARY_PATH}" PATH="${HERE}/:${PATH}" exec "${HERE}"/AppImageAssistant "$@"
+PYTHONPATH="${HERE}"/opt/rh/python27:"$PYTHONPATH" LD_LIBRARY_PATH="${HERE}/usr/lib/:${LD_LIBRARY_PATH}" PATH="${HERE}/:${PATH}" exec "AppImageAssistant "$@"
 EOF
 chmod +x AppRun
 get_assistant
@@ -104,12 +104,12 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
-mkdir -p /app/lib /app/AppImageKit/
+mkdir -p /app/lib
 cp -rfv /lib64/*  /app/lib/
 
-mv  /AppImageKit/AppImageAssistant /app/
-mv  /AppImageKit/AppImageExtract /app/
-mv  /AppImageKit/AppImageMonitor /app/
+mv  /AppImageKit/AppImageAssistant /app/usr/bin
+mv  /AppImageKit/AppImageExtract /app/usr/bin
+mv  /AppImageKit/AppImageMonitor /app/usr/bin
 mv /opt/rh/* /app/opt/rh/
 rm  -rf ./opt/
 
