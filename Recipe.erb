@@ -8,31 +8,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common rpm-build python27-tkinter rh-python34-python-tkinter tkinter gnome-icon-theme
-
-function make_apprun_skel {
-cat > ./AppRun <<\EOF
-#!/bin/bash
-
-# Base environment variables
-export LD_LIBRARY_PATH=${APPDIR}/lib:${LD_LIBRARY_PATH}
-export PATH=/opt/rh/python27/root/usr/bin/:/opt/python3.5/bin:$PATH
-export XDG_DATA_DIRS=${APPDIR}/share:${XDG_DATA_DIRS}
-# GTK+/GIO/GdkPixbuf environment variables
-# http://askubuntu.com/questions/251712/how-can-i-install-a-gsettings-schema-without-root-privileges
-export GSETTINGS_SCHEMA_DIR=${APPDIR}/share/glib-2.0/schemas/:${GSETTINGS_SCHEMA_DIR}
-export GDK_PIXBUF_MODULE_FILE=${APPDIR}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
-export GTK_PATH=${APPDIR}/lib/gtk-3.0
-export GTK_DATA_PREFIX=${APPDIR}
-export GTK_THEME=Adwaita
-
-# Currently we change into the APPDIR directory, this only because of gdk-pixbuf
-# and pango cache files which need to specify relative paths.
-cd ${APPDIR}
-
-EOF
-chmod a+x ./AppRun
-}
+yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme
 
 function patch_usr {
   find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
@@ -61,13 +37,11 @@ function make_appdir {
 
 
 git clone https://github.com/xdgurl/xdgurl
-cd xdgurl/src
-sed -i s#/usr/bin/env\spython#/opt/rh/python27/root/usr/bin/python#g xdgurl.py
 cd ../../xdgurl/pkg/fedora
 
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
-sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter/g xdgurl.spec
+sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter\ tkinter\ wxPython\ rh-python34\ rh-python27/g xdgurl.spec
 cd ..
 sh build.sh fedora
 
@@ -136,9 +110,7 @@ fi
 get_desktopintegration <%= name %>
 
 
-make_apprun_skel
+get_apprun
 get_assistant
 echo "./usr/bin/xdgurl $@" >> AppRun
 make_appdir "${APP}" "${VERSION}"
-
-
