@@ -90,13 +90,6 @@ if [ "$VERSION" == "" ] ; then
 fi
 cat > AppRun << EOF
 #!/bin/bash
-
-DIR="\`dirname \"\$0\"\`"
-DIR="\`( cd \"\$DIR\" && pwd )\`"
-export APPDIR=\$DIR
-export LD_LIBRARY_PATH=\$DIR/usr/lib/:\$LD_LIBRARY_PATH
-export PATH=\$DIR/usr/bin:\$PATH
-#!/bin/bash
 HERE="$(dirname "$(readlink -f "${0}")")"
 PYTHONPATH="${HERE}"/opt/rh/python27:"$PYTHONPATH" LD_LIBRARY_PATH="${HERE}/usr/lib/:${LD_LIBRARY_PATH}" PATH="${HERE}/:${PATH}" exec "${HERE}"/AppImageAssistant "$@"
 EOF
