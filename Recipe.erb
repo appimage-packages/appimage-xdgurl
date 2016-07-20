@@ -135,7 +135,7 @@ VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
 # Add desktop integration
 get_desktopintegration <%= name %>
-mv $LOWERAPP.wrapper /app/usr/bin/
+mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
