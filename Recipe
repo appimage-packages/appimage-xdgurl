@@ -1,7 +1,7 @@
 #!/bin/bash
 
-APP=<%= proper_name %>
-LOWERAPP=<%= name %>
+APP=Xdgurl
+LOWERAPP=xdgurl
 
 # Get helper functions
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
@@ -101,7 +101,7 @@ ARCH=$(arch)
 
 cd /
 # Copy desktop file in place
-DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
+DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
 cp $DESKTOP . || true
 echo $DESKTOP
 echo Icon=emblem-web.svg >> $LOWERAPP.desktop
@@ -110,11 +110,11 @@ VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
 
 # Add desktop integration
-get_desktopintegration <%= name %>
+get_desktopintegration xdgurl
 
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
 mv ../app/* $APP.AppDir/
 
-/AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+/AppImageKit/AppImageAssistant.AppDir/package Xdgurl.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
