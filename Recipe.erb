@@ -65,6 +65,9 @@ cat $LOWERAPP.desktop
 VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
 echo $VERSION
 
+# Add desktop integration
+get_desktopintegration <%= name %>
+
 # CentOS 6 places stuff in lib64 where AppRun doesn't find it
 ln -s ./usr/lib ./usr/lib64
 ln -s ./usr/lib ./usr/lib32
@@ -107,8 +110,9 @@ fi
 get_apprun
 get_assistant
 ARCH=$(arch)
-# Add desktop integration
-get_desktopintegration <%= name %>
+
+ls -l
+
 
 cd /
 
