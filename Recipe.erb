@@ -99,12 +99,14 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
-mkdir -p /app/lib /app/usr/share
+mkdir -p /app/lib /app/usr/share /app/etc
 cp -rfv /lib64/*  /app/lib/
 cp -rfv /usr/share /app/usr/share
+cp -rfv /etc /app/etc
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
+mv $LOWERAPP.wrapper /app/usr/bin/
 mv /opt/rh/* /app/opt/rh/
 rm  -rf ./opt/
 
@@ -114,6 +116,7 @@ rm -rf usr/include || true
 rm -rf usr/lib/pkgconfig || true
 rm -rf usr/share/gettext || true
 rm -rf usr/share/pkgconfig || true
+rm -rf usr/share/cmake3 || true
 rm -rf rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
 
