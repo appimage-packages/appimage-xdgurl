@@ -114,7 +114,9 @@ copy_deps
 mkdir -p /app/lib /app/AppImageKit/
 cp -rfv /lib64/*  /app/lib/
 
-cp -rfv /AppImageKit/* /app/AppImageKit/
+mv  /AppImageKit/AppimageAssistant /app/
+mv  /AppImageKit/AppimageExtract /app/
+mv  /AppImageKit/AppimageMonitor /app/
 mv /opt/rh/* /app/opt/rh/
 rm  -rf ./opt/
 
