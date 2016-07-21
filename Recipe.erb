@@ -95,11 +95,12 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
-mkdir -p /app/lib /app/usr/share /app/etc /app/opt/rh/
+mkdir -p /app/lib /app/usr/share /app/etc /app/opt/rh/ /app/bin
 cp -rfv /lib64/*  /app/lib/
 cp -rfv /usr/lib64/*  /app/lib/
-cp -rfv /usr/share/* /app/usr/share/
+cp -rfv /usr/share/tk* /app/usr/share/
 cp -rfv /etc/* /app/etc/
+cp /bin/env /app/bin/
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
