@@ -32,7 +32,7 @@ cd ..
 
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl/src/
-sed  -i s#\/usr\/bin\/env python#\/usr/bin/python# xdgurl.py
+sed  -i s#\/usr\/bin\/env\spython#\/usr\/bin\/python# xdgurl.py
 cd ../../xdgurl/pkg/fedora
 
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter\ tkinter\ wxPython\ rh-python34\ python27/g xdgurl.spec
