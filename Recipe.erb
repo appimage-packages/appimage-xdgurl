@@ -61,7 +61,7 @@ make && make install
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl
 make -j 8
-make install
+PREFIX=/usr make install
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 
@@ -109,8 +109,6 @@ get_assistant
 ARCH=$(arch)
 cd /app
 
-delete_blacklisted
-patch_usr
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
@@ -132,6 +130,7 @@ rm -rf usr/share/gettext || true
 rm -rf usr/share/pkgconfig || true
 rm -rf usr/share/cmake3 || true
 rm -rf usr/share/cmake || true
+rm -rf usr/local/Qt*
 rm -rf rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
 
@@ -147,8 +146,6 @@ cp $DESKTOP . || true
 echo $DESKTOP
 echo Icon=emblem-web >> $LOWERAPP.desktop
 cat $LOWERAPP.desktop
-VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
-echo $VERSION
 # Add desktop integration
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
