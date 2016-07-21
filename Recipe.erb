@@ -31,10 +31,10 @@ cd ..
 
 
 git clone https://github.com/xdgurl/xdgurl
+cd xdgurl/src/
+sed  -i s#\/usr\/bin\/env python#\/usr/bin/python# xdgurl.py
 cd ../../xdgurl/pkg/fedora
 
-
-VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
 sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter\ tkinter\ wxPython\ rh-python34\ python27/g xdgurl.spec
 cd ..
 sh build.sh fedora
