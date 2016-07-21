@@ -60,7 +60,7 @@ make && make install
 
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl
-make -j 8
+PREFIX=/usr make -j 8
 PREFIX=/usr make install
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
@@ -73,14 +73,6 @@ mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime /app/opt/rh /app/lib /out
 
 APPDIR=/app/
 cd $APPDIR
-
-FILES=$(rpm -qla $LOWERAPP)
-for FILE in $FILES ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rfL $FILE ./
-  fi
-done
 
 # Copy in the indirect dependencies
 FILES=$(find . -type f -executable)
@@ -117,7 +109,9 @@ mkdir -p /app/lib /app/usr/share /app/etc /app/usr/local /app/bin
 cp -rfv /lib64/*  /app/lib/
 cp -rfv /usr/lib64/*  /app/lib/
 cp -rfv /usr/share/tk* /app/usr/share/
-cp -rfv /usr/local/* /app/usr/local/
+mv /usr/local/lib/python* /app/usr/local/lib/
+mv /usr/local/bin/python* /app/usr/local/bin/
+mv /usr/local/lib/wx-3.1 /app/usr/local/lib/
 cp -rfv /etc/* /app/etc/
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
