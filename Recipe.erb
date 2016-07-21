@@ -12,10 +12,6 @@ rm -f functions.sh
 yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme rh-python34-python-tkinter \
  python27-tkinter tkinter wxPython rh-python34 python27
 
-function patch_usr {
-  find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
-}
-
 function get_assistant {
   # Build AppImageKit
 if [ ! -d AppImageKit ] ; then
@@ -94,7 +90,7 @@ ARCH=$(arch)
 cd /app
 
 delete_blacklisted
-
+patch_usr
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
@@ -102,8 +98,8 @@ copy_deps
 mkdir -p /app/lib /app/usr/share /app/etc /app/opt/rh/
 cp -rfv /lib64/*  /app/lib/
 cp -rfv /usr/lib64/*  /app/lib/
-cp -rfv /usr/share /app/usr/share
-cp -rfv /etc /app/etc
+cp -rfv /usr/share/* /app/usr/share/
+cp -rfv /etc/* /app/etc/*
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
@@ -125,7 +121,7 @@ find . -name '*.a' -exec rm {} \;
 strip -g $(find usr) || true
 
 
-
+export PYTHONPATH=/usr/lib/python2.7/site-packages:$PYTHONPATH
 
 cd /
 # Copy desktop file in place
