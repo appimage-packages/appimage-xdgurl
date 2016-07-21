@@ -9,7 +9,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tkinter
+yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tkinter mesa-libGLU-devel
 
 function get_assistant {
   # Build AppImageKit
