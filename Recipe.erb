@@ -28,20 +28,40 @@ cd ..
 }
 
 #deps
+wget http://python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz
+tar xf Python-2.7.6.tar.xz
+cd Python-2.7.6
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make && make altinstall
 
+# Python 3.3.5:
+wget http://python.org/ftp/python/3.3.5/Python-3.3.5.tar.xz
+tar xf Python-3.3.5.tar.xz
+cd Python-3.3.5
+./configure --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+make && make altinstall
+
+# First get the setup script for Setuptools:
+wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+
+# Then install it for Python 2.7 and/or Python 3.3:
+python2.7 ez_setup.py
+python3.3 ez_setup.py
+
+# Now install pip using the newly installed setuptools:
+easy_install-2.7 pip
+easy_install-3.3 pip
+
+pip2.7 install --upgrade  --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
 
 git clone https://github.com/xdgurl/xdgurl
-cd xdgurl/src/
-sed  -i s#\/usr\/bin\/env[[:space:]]python#\/usr\/bin\/python# xdgurl.py
-cd ../../xdgurl/pkg/fedora
+cd xdgurl
+make -j 8
+make install
 
-sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter\ tkinter\ wxPython\ rh-python34\ python27/g xdgurl.spec
+VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
+
 cd ..
-sh build.sh fedora
-
-rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-1.0.1-1.el6.x86_64.rpm
-
-
 
 rm -rf /app || true # Clean up from previous runs
 rm /out/* || true
@@ -95,13 +115,11 @@ mkdir -p /app/lib /app/usr/share /app/etc /app/opt/rh/ /app/bin
 cp -rfv /lib64/*  /app/lib/
 cp -rfv /usr/lib64/*  /app/lib/
 cp -rfv /usr/share/tk* /app/usr/share/
+cp -rfv /usr/local/* /app/usr/local/
 cp -rfv /etc/* /app/etc/
-cp /bin/env /app/bin/
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
-cp -rfv /opt/rh/python27/root/usr/bin/* /app/usr/bin/
-cp -rfv /opt/rh/python27/root/usr/lib*/* /app/usr/lib/
 rm  -rf ./opt/
 
 
