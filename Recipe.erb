@@ -52,7 +52,7 @@ python3.3 ez_setup.py
 easy_install-2.7 pip
 easy_install-3.3 pip
 
-pip2.7 install --upgrade  --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
+pip2.7 install --upgrade  --prefix=/usr/local --trusted-host wxpython.org --pre -f http://wxpython.org/Phoenix/snapshot-builds/ wxPython_Phoenix
 
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl
@@ -136,7 +136,7 @@ find . -name '*.a' -exec rm {} \;
 strip -g $(find usr) || true
 
 
-export PYTHONPATH=/usr/lib/python2.7/site-packages:$PYTHONPATH
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 cd /
 # Copy desktop file in place
