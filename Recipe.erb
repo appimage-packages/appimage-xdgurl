@@ -79,11 +79,7 @@ rm -rf ./lib* || true
 
 
 delete_blacklisted
-
-if [ "$VERSION" == "" ] ; then
-  echo "Cannot determine version from rpm"
-  exit 1
-fi
+patch_usr
 get_apprun
 get_assistant
 ARCH=$(arch)
