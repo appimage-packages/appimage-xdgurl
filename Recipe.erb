@@ -9,8 +9,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme rh-python34-python-tkinter \
- python27-tkinter tkinter wxPython rh-python34 python27
+yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tkinter
 
 function get_assistant {
   # Build AppImageKit
