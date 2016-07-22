@@ -10,7 +10,7 @@ rm -f functions.sh
 
 #get deps
 yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tcl-devel tk-devel expect-devel mesa-libGLU-devel gstreamer-devel webkitgtk-devel \
-gstreamer-plugins-base-devel freeglut-devel libffi-devel
+gstreamer-plugins-base-devel freeglut-devel libffi-devel pygtk2-devel
 
 function get_assistant {
   # Build AppImageKit
@@ -84,6 +84,8 @@ get_assistant
 cp -ru /usr/share/mime/* /app/usr/share/mime
 
 cp /usr/local/bin/xdgurl /app/usr/bin/
+mv /usr/lib64/python2.6 /app/usr/lib/
+mv /usr/bin/python2* /app/usr/bin/
 mv /usr/lib/python3.3 /app/usr/lib/
 mv /usr/bin/python3* /app/usr/bin/
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/
