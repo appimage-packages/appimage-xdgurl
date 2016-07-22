@@ -84,7 +84,7 @@ DEPS=$(cat DEPSFILE  |sort | uniq)
 for FILE in $DEPS ; do
   if [ -f $FILE ] ; then
     echo $FILE
-    cp --parents -rfL $FILE ./
+    cp --parents -rfL $FILE /apps/
   fi
 done
 rm -f DEPSFILE
@@ -99,7 +99,6 @@ get_assistant
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
-copy_deps
 mkdir -p /app/lib /app/usr/share /app/etc /app/usr/local /app/usr/local/lib /app/usr/local/bin /app/bin
 cp /usr/local/bin/xdgurl /app/usr/bin/
 mv /usr/local/lib/python* /app/usr/local/lib/
