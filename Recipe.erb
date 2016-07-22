@@ -22,8 +22,8 @@ cd /AppImageKit/
 git_pull_rebase_helper
 sed s#\/usr\/share\/pyshared#\/usr\/lib\/python3.3#g AppImageAssistant.AppDir/AppRun
 ./build.sh
-cp AppImageAssistant.AppDir/AppRun .
-chmod a+x AppRun
+cp AppImageAssistant.AppDir/AppRun /app/
+chmod a+x /app/AppRun
 chmod a+x ./AppImageAssistant*
 
 cd ..
@@ -69,7 +69,7 @@ DEPS=$(cat DEPSFILE  |sort | uniq)
 for FILE in $DEPS ; do
   if [ -f $FILE ] ; then
     echo $FILE
-    cp --parents -rfL $FILE /apps/
+    cp --parents -rfL $FILE /app/
   fi
 done
 rm -f DEPSFILE
