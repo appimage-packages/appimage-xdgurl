@@ -86,6 +86,7 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 cp /usr/local/bin/xdgurl /app/usr/bin/
 mv /usr/lib/python3.3 /app/usr/lib/
 mv /usr/bin/python3* /app/usr/bin/
+cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/
 mv /usr/share/icons /app/usr/share/
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
@@ -102,7 +103,7 @@ rm -rf usr/local/Qt*
 rm -rf rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
 
-strip -g $(find usr) || true
+
 
 cd /
 # Copy desktop file in place
@@ -120,5 +121,5 @@ cd /$APP/
 mv ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 update-mime-database $APP.AppDir/usr/share/mime/
-cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  $APP.AppDir/
+
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
