@@ -9,7 +9,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tkinter mesa-libGLU-devel gstreamer-devel webkitgtk-devel \
+yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tcl-devel tk-devel expect-devel mesa-libGLU-devel gstreamer-devel webkitgtk-devel \
 gstreamer-plugins-base-devel freeglut-devel
 
 function get_assistant {
@@ -89,31 +89,22 @@ for FILE in $DEPS ; do
 done
 rm -f DEPSFILE
 
-# We want everything in usr/ inside the AppDir
-mv lib/* usr/lib/ || true
-rm -rf ./lib* || true
 
-
+ARCH=$(arch)
+cd /app
 delete_blacklisted
 patch_usr
 get_apprun
 get_assistant
-ARCH=$(arch)
-cd /app
-
 cp -ru /usr/share/mime/* /app/usr/share/mime
 update-mime-database /app/usr/share/mime/
 
 copy_deps
 mkdir -p /app/lib /app/usr/share /app/etc /app/usr/local /app/usr/local/lib /app/usr/local/bin /app/bin
-cp -rfv /lib64/*  /app/lib/
-cp -rfv /usr/lib64/*  /app/lib/
-cp -rfv /usr/share/tk* /app/usr/share/
 cp /usr/local/bin/xdgurl /app/usr/bin/
 mv /usr/local/lib/python* /app/usr/local/lib/
 mv /usr/local/bin/python* /app/usr/local/bin/
 mv /usr/local/lib/wx /app/usr/local/lib/
-cp -rfv /etc/* /app/etc/
 mv  /AppImageKit/AppImageAssistant /app/
 mv  /AppImageKit/AppImageExtract /app/
 mv  /AppImageKit/AppImageMonitor /app/
