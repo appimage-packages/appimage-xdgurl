@@ -59,24 +59,7 @@ mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime  /out
 APPDIR=/app/
 cd $APPDIR
 
-# Copy in the indirect dependencies
-FILES=$(find . -type f -executable)
-DEPS=""
-for FILE in $FILES ; do
-  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' > DEPSFILE
-done
-DEPS=$(cat DEPSFILE  |sort | uniq)
-for FILE in $DEPS ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rfL $FILE /app/
-  fi
-done
-rm -f DEPSFILE
-
-
 ARCH=$(arch)
-cd /app
 delete_blacklisted
 patch_usr
 
@@ -87,6 +70,7 @@ cp /usr/local/bin/xdgurl /app/usr/bin/
 cp -rfv /usr/lib64/python2.6 /app/usr/lib/
 mv /usr/bin/python2* /app/usr/bin/
 ln -s /usr/bin/python2.6 /usr/bin/python2
+cp /usr/bin/env /app/usr/bin/
 mv /usr/lib/python3.3 /app/usr/lib/
 mv /usr/bin/python3* /app/usr/bin/
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/
@@ -106,6 +90,20 @@ rm -rf usr/local/Qt*
 rm -rf rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
 
+# Copy in the indirect dependencies
+FILES=$(find . -type f -executable)
+DEPS=""
+for FILE in $FILES ; do
+  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' > DEPSFILE
+done
+DEPS=$(cat DEPSFILE  |sort | uniq)
+for FILE in $DEPS ; do
+  if [ -f $FILE ] ; then
+    echo $FILE
+    cp --parents -rfL $FILE /app/
+  fi
+done
+rm -f DEPSFILE
 
 
 cd /
