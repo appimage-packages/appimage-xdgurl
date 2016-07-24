@@ -24,7 +24,6 @@ fi
 cd /AppImageKit/
 git_pull_rebase_helper
 sed s#\/usr\/share\/pyshared#\/usr\/lib\/python3.3#g AppImageAssistant.AppDir/AppRun
-sed s#\/usr\/bin\/env#\/usr\/bin\/python2#g AppImageAssistant.AppDir/AppImageAssitant
 ./build.sh
 cp AppImageAssistant.AppDir/AppRun /app/
 chmod a+x /app/AppRun
@@ -110,7 +109,6 @@ DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
 cp $DESKTOP . || true
 echo $DESKTOP
 echo Icon=emblem-web >> $LOWERAPP.desktop
-cat $LOWERAPP.desktop
 # Add desktop integration
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
