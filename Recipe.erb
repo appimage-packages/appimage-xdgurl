@@ -1,4 +1,7 @@
 #!/bin/bash
+rm -rf /app || true # Clean up from previous runs
+rm /out/* || true
+mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime  /out
 
 APP=<%= proper_name %>
 LOWERAPP=<%= name %>
@@ -21,11 +24,11 @@ fi
 cd /AppImageKit/
 git_pull_rebase_helper
 sed s#\/usr\/share\/pyshared#\/usr\/lib\/python3.3#g AppImageAssistant.AppDir/AppRun
+sed s#\/usr\/bin\/env#\/usr\/bin\/python2#g AppImageAssistant.AppDir/AppImageAssitant
 ./build.sh
 cp AppImageAssistant.AppDir/AppRun /app/
 chmod a+x /app/AppRun
 chmod a+x ./AppImageAssistant*
-
 cd ..
 }
 
@@ -34,12 +37,12 @@ cd ..
 wget http://python.org/ftp/python/3.3.5/Python-3.3.5.tar.xz
 tar xf Python-3.3.5.tar.xz
 cd Python-3.3.5
-./configure --prefix=/usr/ --enable-shared LDFLAGS="-Wl,-rpath /usr/lib"
+./configure --prefix=/app/usr/
 make && make altinstall
 
 git clone https://github.com/wxWidgets/wxWidgets
 cd wxWidgets
-./configure --prefix=/usr/ --enable-shared LDFLAGS="-Wl,-rpath /usr/lib"
+./configure --prefix=/app/usr/
 make && make install
 
 
@@ -52,9 +55,7 @@ VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v//')
 
 cd ..
 
-rm -rf /app || true # Clean up from previous runs
-rm /out/* || true
-mkdir -p /app/usr/bin /app/usr/lib /app/usr/share/mime  /out
+
 
 APPDIR=/app/
 cd $APPDIR
@@ -69,10 +70,8 @@ cp -ru /usr/share/mime/* /app/usr/share/mime
 cp /usr/local/bin/xdgurl /app/usr/bin/
 cp -rfv /usr/lib64/python2.6 /app/usr/lib/
 mv /usr/bin/python2* /app/usr/bin/
-ln -s /usr/bin/python2.6 /usr/bin/python2
+ln -s /app/usr/bin/python2.6 /app/usr/bin/python2
 cp /usr/bin/env /app/usr/bin/
-mv /usr/lib/python3.3 /app/usr/lib/
-mv /usr/bin/python3* /app/usr/bin/
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/
 mv /usr/share/icons /app/usr/share/
 mv  /AppImageKit/AppImageAssistant /app/
@@ -100,11 +99,10 @@ DEPS=$(cat DEPSFILE  |sort | uniq)
 for FILE in $DEPS ; do
   if [ -f $FILE ] ; then
     echo $FILE
-    cp --parents -rfL $FILE /app/
+    cp --parents -rvfL $FILE /app/
   fi
 done
 rm -f DEPSFILE
-
 
 cd /
 # Copy desktop file in place
@@ -119,7 +117,7 @@ mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 cd /$APP/
 
-mv ../app/* $APP.AppDir/
+mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 update-mime-database $APP.AppDir/usr/share/mime/
 
