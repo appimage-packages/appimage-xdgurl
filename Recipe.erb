@@ -70,6 +70,7 @@ echo Icon=emblem-web >> $LOWERAPP.desktop
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
+delete_blacklisted
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
@@ -84,10 +85,9 @@ rm -rf ./usr/mkspecs/ || true
 rm -rf /usr/lib64
 rm -rf /usr/lib
 find . -name '*.a' -exec rm {} \;
-delete_blacklisted
-get_assistant
+
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 
-/AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+generate_appimage
