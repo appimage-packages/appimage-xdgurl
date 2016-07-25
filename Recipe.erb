@@ -26,22 +26,18 @@ cd ..
 cat > AppRun << EOF
 #!/bin/bash
 
-HERE="$(dirname "$(readlink -f "${0}")")"
-export PYTHONPATH="${HERE}"/usr/lib/python3.3:"$PYTHONPATH"
-export LD_LIBRARY_PATH="${HERE}/usr/lib/:${LD_LIBRARY_PATH}"
-export PATH="${HERE}/:${PATH}"
+export PYTHONPATH=/usr/lib/python33:"$PYTHONPATH"
+export LD_LIBRARY_PATH="/usr/lib/:/usr/lib64/:${LD_LIBRARY_PATH}"
+export PATH="/:${PATH}"
 
-exec "${HERE}"/usr/bin/xdgurl "$@"
+exec /usr/local/bin/xdgurl "$@"
 
 EOF
 chmod +x AppRun
 
-APPDIR=/app/
-cd $APPDIR
-
 ARCH=$(arch)
 
-mv /usr/local/bin/xdgurl /app/usr/bin/  || true
+mv /usr/local/bin/xdgurl /app/usr/local/bin/  || true
 mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
 cp AppRun /app/  || true
 
@@ -70,7 +66,7 @@ echo Icon=emblem-web >> $LOWERAPP.desktop
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
-delete_blacklisted
+
 
 # We don't bundle the developer stuff
 rm -rf usr/include || true
@@ -85,7 +81,7 @@ rm -rf ./usr/mkspecs/ || true
 rm -rf /usr/lib64
 rm -rf /usr/lib
 find . -name '*.a' -exec rm {} \;
-
+delete_blacklisted
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
