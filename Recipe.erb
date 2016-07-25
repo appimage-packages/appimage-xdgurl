@@ -1,13 +1,6 @@
 #!/bin/bash
 rm -rf /app || true # Clean up from previous runs
 rm /out/* || true
-
-
-# make sure lib and lib64 are the same thing
-mkdir -p /app/usr/lib
-cd  /app/usr
-ln -s lib lib64
-
 mkdir -p /app/usr/bin /app/usr/share/mime  /out
 
 APP=<%= proper_name %>
@@ -19,41 +12,7 @@ wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./func
 rm -f functions.sh
 
 #get deps
-yum -y install perl-URI.noarch gnome-common gnome-icon-theme gtk2-devel tcl-devel tk-devel expect-devel mesa-libGLU-devel gstreamer-devel webkitgtk-devel \
-gstreamer-plugins-base-devel freeglut-devel libffi-devel pygtk2-devel
-
-function get_assistant {
-  # Build AppImageKit
-if [ ! -d AppImageKit ] ; then
-  git clone  --depth 1 https://github.com/probonopd/AppImageKit.git /AppImageKit
-fi
-
-cd /AppImageKit/
-git_pull_rebase_helper
-./build.sh
-cp AppImageAssistant.AppDir/AppRun /app/
-chmod a+x /app/AppRun
-chmod a+x ./AppImageAssistant*
-cd ..
-}
-get_assistant
-#deps
-# Python 3.3.5:
-wget http://python.org/ftp/python/3.3.5/Python-3.3.5.tar.xz
-tar xf Python-3.3.5.tar.xz
-cd Python-3.3.5
-./configure --prefix=/app/usr/
-make && make altinstall
-
-git clone https://github.com/wxWidgets/wxWidgets
-cd wxWidgets
-./configure --prefix=/app/usr/
-make && make install
-
-wget http://downloads.sourceforge.net/wxpython/wxPython-src-3.0.2.0.tar.bz2
-tar --bzip2 -xf wxPython-src-3.0.2.0.tar.bz2
-cd wxPython-src-3.0.2.0/wxPython
-/app/usr/bin/python3.3 build-wxpython.py --prefix=/app/usr/
+yum -y install perl-URI.noarch gnome-icon-theme python33  python26 wxPython wxGTK
 
 git clone https://github.com/xdgurl/xdgurl
 cd xdgurl
@@ -81,16 +40,10 @@ APPDIR=/app/
 cd $APPDIR
 
 ARCH=$(arch)
-patch_usr
 
-cp -ru /usr/share/mime/* /app/usr/share/mime  || true
 mv /usr/local/bin/xdgurl /app/usr/bin/  || true
 mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
-cp  /AppImageKit/AppImageAssistant /app/  || true
-cp  /AppImageKit/AppImageExtract /app/  || true
-cp  /AppImageKit/AppImageMonitor /app/  || true
 cp AppRun /app/  || true
-cp -rfv /usr/lib64/* /app/usr/lib/  || true
 
 # Copy in the indirect dependencies
 FILES=$(find . -type f -executable)
@@ -133,10 +86,9 @@ rm -rf /usr/lib64
 rm -rf /usr/lib
 find . -name '*.a' -exec rm {} \;
 delete_blacklisted
-
+get_assistant
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
-
 
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
