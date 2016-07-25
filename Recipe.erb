@@ -92,6 +92,4 @@ rm -f DEPSFILE
 mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
-
-
-generate_appimage
+/AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
