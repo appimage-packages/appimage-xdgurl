@@ -71,7 +71,6 @@ get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 
-update-mime-database $APP.AppDir/usr/share/mime/
 # We don't bundle the developer stuff
 rm -rf usr/include || true
 rm -rf usr/lib/pkgconfig || true
