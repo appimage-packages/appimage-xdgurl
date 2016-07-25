@@ -114,7 +114,7 @@ get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
 
-
+update-mime-database $APP.AppDir/usr/share/mime/
 # We don't bundle the developer stuff
 rm -rf usr/include || true
 rm -rf usr/lib/pkgconfig || true
@@ -133,6 +133,6 @@ delete_blacklisted
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
-update-mime-database $APP.AppDir/usr/share/mime/
+
 
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
