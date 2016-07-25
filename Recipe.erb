@@ -52,14 +52,7 @@ get_assistant
 mv /usr/local/bin/xdgurl /app/usr/bin/  || true
 mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
 cp AppRun /app/  || true
-# Copy desktop file in place
-DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
-cp $DESKTOP $APP.AppDir/ || true
-echo $DESKTOP
-echo Icon=emblem-web >> $LOWERAPP.desktop
-# Add desktop integration
-get_desktopintegration <%= name %>
-mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
+
 cd /
 #delete_blacklisted
 # We don't bundle the developer stuff
@@ -88,8 +81,17 @@ for FILE in $DEPS ; do
   fi
 done
 rm -f DEPSFILE
+# Copy desktop file in place
 
 mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
+DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
+cp $DESKTOP $APP.AppDir/ || true
+echo $DESKTOP
+echo Icon=emblem-web >> $LOWERAPP.desktop
+# Add desktop integration
+get_desktopintegration <%= name %>
+mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mv -v ../app/* $APP.AppDir/
+
 /AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
