@@ -48,7 +48,7 @@ EOF
 chmod +x AppRun
 
 ARCH=$(arch)
-
+get_assistant
 mv /usr/local/bin/xdgurl /app/usr/bin/  || true
 mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
 cp AppRun /app/  || true
@@ -93,5 +93,5 @@ mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 
-get_assistant
+
 generate_appimage
