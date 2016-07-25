@@ -88,21 +88,6 @@ cp  /AppImageKit/AppImageMonitor /app/  || true
 cp AppRun /app/  || true
 cp -rfv /usr/lib64/* /app/usr/lib/  || true
 
-# We don't bundle the developer stuff
-rm -rf usr/include || true
-rm -rf usr/lib/pkgconfig || true
-rm -rf usr/share/gettext || true
-rm -rf usr/share/pkgconfig || true
-rm -rf usr/share/cmake3 || true
-rm -rf usr/share/cmake || true
-rm -rf usr/local/* || true
-rm -rf opt/* || true
-rm -rf ./usr/mkspecs/ || true
-rm -rf /usr/lib64
-rm -rf /usr/lib
-find . -name '*.a' -exec rm {} \;
-delete_blacklisted
-
 # Copy in the indirect dependencies
 FILES=$(find . -type f -executable)
 DEPS=""
@@ -128,8 +113,24 @@ echo Icon=emblem-web >> $LOWERAPP.desktop
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mkdir -p /$APP/$APP.AppDir
-cd /$APP/
 
+
+# We don't bundle the developer stuff
+rm -rf usr/include || true
+rm -rf usr/lib/pkgconfig || true
+rm -rf usr/share/gettext || true
+rm -rf usr/share/pkgconfig || true
+rm -rf usr/share/cmake3 || true
+rm -rf usr/share/cmake || true
+rm -rf usr/local/* || true
+rm -rf opt/* || true
+rm -rf ./usr/mkspecs/ || true
+rm -rf /usr/lib64
+rm -rf /usr/lib
+find . -name '*.a' -exec rm {} \;
+delete_blacklisted
+
+cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
 update-mime-database $APP.AppDir/usr/share/mime/
