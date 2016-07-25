@@ -82,12 +82,13 @@ for FILE in $DEPS ; do
   fi
 done
 rm -f DEPSFILE
+# Add desktop integration
+get_desktopintegration <%= name %>
 # Copy desktop file in place
 
 mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
-# Add desktop integration
-get_desktopintegration <%= name %>
+
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
 mv -v ../app/* $APP.AppDir/
 
