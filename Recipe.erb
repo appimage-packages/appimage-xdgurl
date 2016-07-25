@@ -58,7 +58,20 @@ cd ..
 
 APPDIR=/app/
 cd $APPDIR
-
+# Copy in the indirect dependencies
+FILES=$(find . -type f -executable)
+DEPS=""
+for FILE in $FILES ; do
+  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' >> DEPSFILE
+done
+DEPS=$(cat DEPSFILE  |sort | uniq)
+for FILE in $DEPS ; do
+  if [ -f $FILE ] ; then
+    echo $FILE
+    cp --parents -rvfL $FILE /app/
+  fi
+done
+rm -f DEPSFILE
 ARCH=$(arch)
 delete_blacklisted
 patch_usr
@@ -86,21 +99,6 @@ rm -rf usr/share/cmake || true
 rm -rf usr/local/Qt*
 rm -rf rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
-
-# Copy in the indirect dependencies
-FILES=$(find . -type f -executable)
-DEPS=""
-for FILE in $FILES ; do
-  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' > DEPSFILE
-done
-DEPS=$(cat DEPSFILE  |sort | uniq)
-for FILE in $DEPS ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rvfL $FILE /app/
-  fi
-done
-rm -f DEPSFILE
 
 cd /
 # Copy desktop file in place
