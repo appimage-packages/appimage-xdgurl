@@ -82,6 +82,7 @@ for FILE in $DEPS ; do
 done
 rm -f DEPSFILE
 
+mkdir -p /$APP/ $APP.AppDir/
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
 cp /$LOWERAPP.desktop  $APP.AppDir/
