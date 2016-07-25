@@ -85,18 +85,15 @@ rm -f DEPSFILE
 mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
 mv -v ../app/* $APP.AppDir/
-cp /$LOWERAPP.desktop  $APP.AppDir/
 
 # Copy desktop file in place
 DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
-cp $DESKTOP . || true
+cp $DESKTOP $APP.AppDir/ || true
 echo $DESKTOP
 echo Icon=emblem-web >> $LOWERAPP.desktop
 # Add desktop integration
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
-mkdir -p /$APP/$APP.AppDir
-
 
 get_assistant
 generate_appimage
