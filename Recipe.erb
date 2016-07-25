@@ -86,7 +86,6 @@ cp  /AppImageKit/AppImageAssistant /app/  || true
 cp  /AppImageKit/AppImageExtract /app/  || true
 cp  /AppImageKit/AppImageMonitor /app/  || true
 cp AppRun /app/  || true
-cp -rfv /lib64/* /app/usr/lib/  || true
 cp -rfv /usr/lib64/* /app/usr/lib/  || true
 
 # We don't bundle the developer stuff
@@ -99,6 +98,8 @@ rm -rf usr/share/cmake || true
 rm -rf usr/local/* || true
 rm -rf opt/* || true
 rm -rf ./usr/mkspecs/ || true
+rm -rf /usr/lib64
+rm -rf /usr/lib
 find . -name '*.a' -exec rm {} \;
 delete_blacklisted
 
