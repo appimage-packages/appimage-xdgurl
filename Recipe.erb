@@ -32,7 +32,10 @@ make -j 8
 make install
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
-
+DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
+echo $DESKTOP
+cp $DESKTOP .
+echo Icon=emblem-web >> $LOWERAPP.desktop
 cd ..
 
 cat > AppRun << EOF
@@ -85,10 +88,7 @@ rm -f DEPSFILE
 
 mkdir -p /$APP/$APP.AppDir/
 cd /$APP/
-DESKTOP=$(find . -name "*$LOWERAPP.desktop" | head -n 1)
 cp $DESKTOP $APP.AppDir/ || true
-echo $DESKTOP
-echo Icon=emblem-web >> $LOWERAPP.desktop
 # Add desktop integration
 get_desktopintegration <%= name %>
 mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
