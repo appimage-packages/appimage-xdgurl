@@ -7,20 +7,12 @@ APP=<%= proper_name %>
 LOWERAPP=<%= name %>
 
 # Get helper functions
-wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
+wget -q https://github.com/appimage-packages/AppImages/raw/master/functions.sh -O ./functions.sh
 . ./functions.sh
 rm -f functions.sh
 
-function get_assistant {
- # Build AppImageKit
-if [ ! -d AppImageKit ] ; then
-  git clone  --depth 1 https://github.com/probonopd/AppImageKit.git /AppImageKit
-fi
-cd /AppImageKit/
-git_pull_rebase_helper
-./build.sh
-chmod a+x ./AppImageAssistant*
-cd ..
+function copy_desktop {
+  find . -name *desktop -exec cp {} . \;
 }
 
 #get deps
@@ -31,66 +23,22 @@ cd xdgurl
 make -j 8
 make install
 
-VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
-
-cd ..
-
-cat > AppRun << EOF
-#!/bin/bash
-
-export PYTHONPATH=/usr/lib64/python3.3:/usr/lib/python2.6:"$PYTHONPATH"
-export LD_LIBRARY_PATH="/usr/lib/:/usr/lib64/:${LD_LIBRARY_PATH}"
-export PATH="/:${PATH}"
-
-exec /usr/bin/xdgurl "$@"
-
-EOF
-chmod +x AppRun
-
+VERSION=$(git describe | sed -e 's/-r.*$// ; s/^v// ')
 ARCH=$(arch)
-get_assistant
-mv /usr/local/bin/xdgurl /app/usr/bin/  || true
-mv /usr/local/share/applications/xdgurl.desktop /xdgurl.desktop
+APP= <%= name %>
+
+cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg . || true
+
+# delete potentially harmful binaries
+delete_blacklisted
+
+#Copy libs over
+copy_libs
+
+#copy desktop in place
+copy_desktop
 echo Icon=emblem-web >>  /xdgurl.desktop
-mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
-cp AppRun /app/  || true
-
-cd /
-#delete_blacklisted
-# We don't bundle the developer stuff
-rm -rf usr/include || true
-rm -rf usr/lib/pkgconfig || true
-rm -rf usr/share/gettext || true
-rm -rf usr/share/pkgconfig || true
-rm -rf usr/share/cmake3 || true
-rm -rf usr/share/cmake || true
-rm -rf usr/local/* || true
-rm -rf opt/* || true
-rm -rf ./usr/mkspecs/ || true
-find . -name '*.a' -exec rm {} \;
-
-# Copy in the indirect dependencies
-FILES=$(find . -type f -executable)
-DEPS=""
-for FILE in $FILES ; do
-  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' >> DEPSFILE
-done
-DEPS=$(cat DEPSFILE  |sort | uniq)
-for FILE in $DEPS ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rvfL $FILE /app/
-  fi
-done
-rm -f DEPSFILE
 # Add desktop integration
 get_desktopintegration <%= name %>
-# Copy desktop file in place
-mv $LOWERAPP.desktop /app/
-mkdir -p /$APP/$APP.AppDir/
-cd /$APP/
 
-mv /usr/bin/$LOWERAPP.wrapper /app/usr/bin/
-mv -v ../app/* $APP.AppDir/
-
-/AppImageKit/AppImageAssistant.AppDir/package <%= proper_name %>.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+generate_appimage
