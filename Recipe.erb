@@ -1,6 +1,8 @@
 #!/bin/bash
 #get deps
-yum -y install gnome-common wget git perl-URI.noarch gnome-icon-theme python33  python26 wxPython wxGTK python-argparse
+yum -y install gnome-common wget git perl-URI.noarch gnome-icon-theme python33  python26 wxPython wxGTK
+
+yum install python-setuptools && easy_install argparse
 
 # Get helper functions
 wget -q https://github.com/appimage-packages/AppImages/raw/master/functions.sh -O ./functions.sh
@@ -18,7 +20,7 @@ make install
 
 VERSION=$(git describe | sed -e 's/-r.*$// ; s/^v// ')
 ARCH=$(arch)
-APP= <%= name %>
+APP=<%= name %>
 
 cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg . || true
 
