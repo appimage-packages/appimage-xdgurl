@@ -10,7 +10,7 @@ wget -q https://github.com/appimage-packages/AppImages/raw/master/functions.sh -
 rm -f functions.sh
 
 function copy_desktop {
-  find . -name *desktop -exec cp {} . \;
+  find . -name "$APP.desktop"  -exec cp {} . \;
 }
 
 git clone https://github.com/xdgurl/xdgurl
