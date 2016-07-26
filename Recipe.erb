@@ -32,7 +32,7 @@ make -j 8
 make install
 
 VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
-echo Icon=emblem-web >> $LOWERAPP.desktop
+
 cd ..
 
 cat > AppRun << EOF
@@ -51,6 +51,7 @@ ARCH=$(arch)
 get_assistant
 mv /usr/local/bin/xdgurl /app/usr/bin/  || true
 mv /usr/local/share/applications/xdgurl.desktop /xdgurl.desktop
+echo Icon=emblem-web >>  /xdgurl.desktop
 mv /usr/share/icons/gnome/scalable/emblems/emblem-web.svg  /app/  || true
 cp AppRun /app/  || true
 
@@ -65,6 +66,7 @@ rm -rf usr/share/cmake3 || true
 rm -rf usr/share/cmake || true
 rm -rf usr/local/* || true
 rm -rf opt/* || true
+rm -rf etc
 rm -rf ./usr/mkspecs/ || true
 find . -name '*.a' -exec rm {} \;
 
