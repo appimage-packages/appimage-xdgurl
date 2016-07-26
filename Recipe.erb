@@ -17,8 +17,10 @@ git clone https://github.com/xdgurl/xdgurl
 cd xdgurl
 make -j 8
 make install
-
-VERSION=$(git describe | sed -e 's/-r.*$// ; s/^v// ')
+cd ..
+#copy desktop in place
+copy_desktop
+VERSION=$(git describe | sed -e 's/^r.*// ; s/-g.*$// ')
 ARCH=$(arch)
 APP=<%= name %>
 
@@ -30,8 +32,7 @@ delete_blacklisted
 #Copy deps over
 copy_deps
 
-#copy desktop in place
-copy_desktop
+
 echo Icon=emblem-web >>  /xdgurl.desktop
 # Add desktop integration
 get_desktopintegration <%= name %>
