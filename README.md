@@ -1,2 +1,2 @@
-# appimage-xdgurl
-Appimage for xdgurl
+# appimage-template
+xdgurl appimage. Fully functional.

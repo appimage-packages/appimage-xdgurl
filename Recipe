@@ -1,120 +1,34 @@
 #!/bin/bash
+#
+# Copyright (C) 2016 Scarlett Clark <sgclark@kde.org>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) version 3, or any
+# later version accepted by the membership of KDE e.V. (or its
+# successor approved by the membership of KDE e.V.), which shall
+# act as a proxy defined in Section 6 of version 3 of the license.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-APP=Xdgurl
-LOWERAPP=xdgurl
+# Set variables
+VERSION=1.0.1-1
+ARCH=x86_64
 
-# Get helper functions
-wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
-. ./functions.sh
-rm -f functions.sh
+APP=xdgurl
 
-#get deps
-yum -y install perl-URI.noarch gnome-common rpm-build gnome-icon-theme rh-python34-python-tkinter \
- python27-tkinter tkinter wxPython rh-python34 rh-python27
+cd //xdgurl.AppDir
+export LD_LIBRARY_PATH=./usr/lib/:$LD_LIBRARY_PATH
+find //xdgurl.AppDir/usr/lib/ -name '*.la' | xargs -i rm {}
 
-function patch_usr {
-  find . -type f -exec sed -i -e 's|/usr|././|g' {} \;
-}
+mv ./usr/share/tcltk/tcl8.6 ./usr/lib/tcl8.6
+mv ./usr/share/tcltk/tk8.6 ./usr/lib/tk8.6
 
-function get_assistant {
-  # Build AppImageKit
-if [ ! -d AppImageKit ] ; then
-  git clone  --depth 1 https://github.com/probonopd/AppImageKit.git /AppImageKit
-fi
-
-cd /AppImageKit/
-git_pull_rebase_helper
-./build.sh
-
-chmod a+x ./AppImageAssistant*
-
-cd ..
-}
-
-#deps
-
-
-git clone https://github.com/xdgurl/xdgurl
-cd ../../xdgurl/pkg/fedora
-
-
-VERSION=$(git describe | sed -e 's/-g.*$// ; s/^v// ; s/-r.*$//')
-sed  -i s/python3-tkinter/rh-python34-python-tkinter\ python27-tkinter\ tkinter\ wxPython\ rh-python34\ python27/g xdgurl.spec
-cd ..
-sh build.sh fedora
-
-rpm -i /xdgurl/pkg/build/RPMS/x86_64/xdgurl-1.0.1-1.el6.x86_64.rpm
-
-
-
-rm -rf /app || true # Clean up from previous runs
-rm /out/* || true
-mkdir -p /app/usr/bin /app/usr/lib /out
-
-APPDIR=/app/
-cd $APPDIR
-
-cp /usr/share/icons/gnome/scalable/emblems/emblem-web.svg .
-
-# CentOS 6 places stuff in lib64 where AppRun doesn't find it
-ln -s ./usr/lib ./usr/lib64
-ln -s ./usr/lib ./usr/lib32
-
-FILES=$(rpm -qla $APP)
-for FILE in $FILES ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rfL $FILE ./
-  fi
-done
-
-# Copy in the indirect dependencies
-FILES=$(find . -type f -executable)
-DEPS=""
-for FILE in $FILES ; do
-  ldd "${FILE}" | grep "=>" | awk '{print $3}' | xargs -I '{}' echo '{}' > DEPSFILE
-done
-DEPS=$(cat DEPSFILE  |sort | uniq)
-for FILE in $DEPS ; do
-  if [ -f $FILE ] ; then
-    echo $FILE
-    cp --parents -rfL $FILE ./
-  fi
-done
-rm -f DEPSFILE
-
-# We want everything in usr/ inside the AppDir
-mv lib*/* usr/lib/ || true
-rm -rf ./lib* || true
-
-
-delete_blacklisted
-
-if [ "$VERSION" == "" ] ; then
-  echo "Cannot determine version from rpm"
-  exit 1
-fi
-
-get_apprun
-get_assistant
-ARCH=$(arch)
-
-cd /
-# Copy desktop file in place
-DESKTOP=$(find . -name "*$APP.desktop" | head -n 1)
-cp $DESKTOP . || true
-echo $DESKTOP
-echo Icon=emblem-web.svg >> $LOWERAPP.desktop
-cat $LOWERAPP.desktop
-VERSION=$(rpm -qa | grep ^$LOWERAPP- | cut -d - -f 2)
-echo $VERSION
-
-# Add desktop integration
-get_desktopintegration xdgurl
-
-mkdir -p /$APP/$APP.AppDir
-cd /$APP/
-
-mv ../app/* $APP.AppDir/
-
-/AppImageKit/AppImageAssistant.AppDir/package Xdgurl.AppDir/ /out/$APP-$VERSION-$ARCH.AppImage
+./AppImageAssistant /xdgurl.AppDir "/out/$APP-$VERSION-$ARCH.AppImage"

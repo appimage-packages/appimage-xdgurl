@@ -1,8 +1,6 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
+#!/bin/bash
 #
 # Copyright (C) 2016 Scarlett Clark <sgclark@kde.org>
-# Copyright (C) 2015-2016 Harald Sitter <sitter@kde.org>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -15,14 +13,21 @@
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License fo-r more details.
+# Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
-require_relative 'libs/builddocker.rb'
-require 'fileutils'
 
-builder = CI.new
-builder.run = [CI::Build.new()]
-builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
-builder.create_container
+# Set variables
+VERSION=<%= version %>
+ARCH=<%= arch %>
+APP=<%= name %>
+
+cd /<%= app_dir %>
+export LD_LIBRARY_PATH=./usr/lib/:$LD_LIBRARY_PATH
+find /<%= app_dir %>/usr/lib/ -name '*.la' | xargs -i rm {}
+
+mv ./usr/share/tcltk/tcl8.6 ./usr/lib/tcl8.6
+mv ./usr/share/tcltk/tk8.6 ./usr/lib/tk8.6
+
+./AppImageAssistant <%= app_dir %> "/out/$APP-$VERSION-$ARCH.AppImage"
