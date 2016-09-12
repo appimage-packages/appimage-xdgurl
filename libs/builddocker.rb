@@ -90,7 +90,7 @@ else
                     'Binds' => ["/home/jenkins/workspace/appimage-xdgurl/:/in",
                              "/home/jenkins/workspace/appimage-xdgurl/out:/out",
                              "/tmp:/tmp",
-                              "/home/jenkins/workspace/appimage-xdgurl/out:/out"])
+                              "/home/jenkins/workspace/appimage-xdgurl/app:/app"])
 end
     ret = @c.wait
     status_code = ret.fetch('StatusCode', 1)
