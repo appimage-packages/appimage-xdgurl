@@ -98,7 +98,7 @@ class Sources
       Dir.chdir("/app/src/#{name}") do
         p "running qmake #{options}"
         system('echo $PATH')
-        system("/app/usr/bin/qmake linuxdeployqt.pro")
+        system("#{options}")
         system('make -j 8 && sudo make install')
       end
     when 'bootstrap'
