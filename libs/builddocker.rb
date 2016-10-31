@@ -26,10 +26,11 @@ require 'logger/colors'
 
 class CI
   class Build
-    def initialize()
+    def initialize(name)
       @image = ''
       @c = ''
       @binds = ''
+      @name = name
     end
   end
   def init_logging
@@ -45,10 +46,10 @@ class CI
   attr_accessor :run
   attr_accessor :cmd
 
-  Docker.options[:read_timeout] = 1 * 120 * 120 # 1 hour
-  Docker.options[:write_timeout] = 1 * 120 * 60 # 1 hour
+  Docker.options[:read_timeout] = 1 * 260 * 260 # 1 hour
+  Docker.options[:write_timeout] = 1 * 260 * 260 # 1 hour
 
-  def create_container
+  def create_container(name)
     init_logging
     @c = Docker::Container.create(
       'Image' => 'sgclark/trusty-minimal',
@@ -56,6 +57,7 @@ class CI
       'Volumes' => {
         '/in' => {},
         '/out' => {},
+        '/app' => {},
         '/lib/modules' => {},
         '/tmp' => {}
       },
@@ -80,17 +82,27 @@ host = `hostname`
 
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => true,
-                      'Binds' => ["/home/scarlett/appimage-packaging/appimage-template:/in",
-                               "/home/scarlett/appimage-packaging/appimage-template/out:/out",
+                      'Binds' => ["/home/scarlett/appimage-packaging/#{name}:/in",
+                               "/home/scarlett/appimage-packaging/#{name}/out:/out",
                                "/tmp:/tmp",
-                               "/home/scarlett/appimage-packaging/appimage-template/app:/app"])
-
+                               "/home/scarlett/appimage-packaging/#{name}/app:/app"])
+elsif  host == "scarlett-maui-desktop\n"
+  @c.start( 'Privileged' => true,
+                      'Binds' => ["/home/scarlett/#{name}:/in",
+                               "/home/scarlett/#{name}/out:/out",
+                               "/tmp:/tmp",
+                               "/home/scarlett/#{name}/app:/app"])
+elsif  host == "scarlett-neon-unstable\n"
+  @c.start( 'Privileged' => true,
+                      'Binds' => ["/home/scarlett/appimage-packaging/#{name}:/in",
+                               "/home/scarlett/appimage-packaging/#{name}/out:/out",
+                               "/tmp:/tmp",
+                               "/home/scarlett/appimage-packaging/#{name}/app:/app"])
 else
   @c.start( 'Privileged' => true,
-                    'Binds' => ["/home/jenkins/workspace/appimage-xdgurl/:/in",
-                             "/home/jenkins/workspace/appimage-xdgurl/out:/out",
+                    'Binds' => ["/home/jenkins/workspace/appimage-#{name}/:/in",
                              "/tmp:/tmp",
-                              "/home/jenkins/workspace/appimage-xdgurl/app:/app"])
+                              "/home/jenkins/workspace/appimage-#{name}/app:/app"])
 end
     ret = @c.wait
     status_code = ret.fetch('StatusCode', 1)

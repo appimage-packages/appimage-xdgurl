@@ -1,2 +1,2 @@
 # appimage-template
-xdgurl appimage. Fully functional.
+Appimage template for skanlite KDE scanner application.
