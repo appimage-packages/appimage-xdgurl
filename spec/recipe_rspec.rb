@@ -140,9 +140,17 @@ describe Recipe do
         end
     end
 
-  describe 'set_version' do
-    it 'Retrieves the version number from the git repo' do
-      expect(app.set_version(type: metadata['type'])).not_to be_nil, "Expected the version not to be nil"
+  def set_version(args = {})
+    self.type = args[:type]
+    self.url = args[:url]
+    p "#{type}"
+    Dir.chdir("/app/src/#{name}") do
+      if  "#{type}" == 'git'
+        self.version = `git describe`.chomp.gsub("release-", "").gsub(/-g.*/, "")
+        p "#{version}"
+      else
+        self.version = "#{url}".chomp.("(^[\d.]+)")
+      end
     end
   end
 

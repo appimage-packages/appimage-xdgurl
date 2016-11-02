@@ -38,6 +38,8 @@ class Recipe
   attr_accessor :version
   attr_accessor :app_dir
   attr_accessor :configure_options
+  ENV['PATH']='/app/usr/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  ENV['LD_LIBRARY_PATH']='/app/usr/lib:/app/usr/lib/x86_64-linux-gnu:/opt/usr/lib/Qt-5.7.0:/usr/lib64:/usr/lib'
 
   def initialize(args = {})
     Dir.chdir('/')
@@ -80,15 +82,15 @@ class Recipe
     end
   end
 
-    def gather_integration(args = {})
-    self.desktop = args[:desktop]
-    Dir.chdir('/app') do
-      system("cp ./usr/share/applications/#{desktop}.desktop /app/usr/lib/firefox-48.0/")
-      # if File.readlines("/app/#{desktop}.desktop").grep(/Icon/).empty?
-      #   system("echo 'Icon=' >> /app/#{desktop}.desktop")
-      # end
-      # system("sed -i -e 's|Exec=.*|Exec=#{name}|g' #{desktop}.desktop")
-      $?.exitstatus
+    # def gather_integration(args = {})
+    # self.desktop = args[:desktop]
+    # Dir.chdir('/app') do
+    #   system("cp ./usr/share/applications/#{desktop}.desktop /app/usr/lib/firefox-48.0/")
+    #   # if File.readlines("/app/#{desktop}.desktop").grep(/Icon/).empty?
+    #   #   system("echo 'Icon=' >> /app/#{desktop}.desktop")
+    #   # end
+    #   # system("sed -i -e 's|Exec=.*|Exec=#{name}|g' #{desktop}.desktop")
+    #   $?.exitstatus
 
     end
   end
@@ -103,44 +105,42 @@ class Recipe
     end
   end
 
-  def run_integration()
-      system('git clone "https://github.com/probonopd/AppImageKit"')
-      Dir.chdir("/AppImageKit") do
-        system('cp --force /in/functions/AppRun AppImageAssistant.AppDir/AppRun')
-        system('./build.sh')
-      end
-      system('cp /AppImageKit/out/AppRun* /app/AppRun')
-      system('cp /AppImageKit/out/AppImageAssistant* /app/AppImageAssistant')
-      system('chmod +x AppRun' )
-      Dir.chdir('/app') do
-        system("/bin/bash -xe /in/functions/desktop_integration.sh  #{name}")
-      end
-      $?.exitstatus
-  end
+  # def run_integration()
+  #     system('git clone "https://github.com/probonopd/AppImageKit"')
+  #     Dir.chdir("/AppImageKit") do
+  #       system('cp --force /in/functions/AppRun AppImageAssistant.AppDir/AppRun')
+  #       system('./build.sh')
+  #     end
+  #     system('cp /AppImageKit/out/AppRun* /app/AppRun')
+  #     system('cp /AppImageKit/out/AppImageAssistant* /app/AppImageAssistant')
+  #     system('chmod +x AppRun' )
+  #     Dir.chdir('/app') do
+  #       system("/bin/bash -xe /in/functions/desktop_integration.sh  #{name}")
+  #     end
+  #     $?.exitstatus
+  # end
 
-  def copy_dependencies(args = {})
-    Dir.chdir("/app") do
-      system("cp -rfv * #{app_dir}")
-    end
-    Dir.chdir("#{app_dir}") do
-      self.dep_path = args[:dep_path]
-      dep_path.each do |dep|
-        system("cp --parents -rfv #{dep} .")
-      end
-    end
-    $?.exitstatus
-  end
+  # def copy_dependencies(args = {})
+  #   Dir.chdir("/app") do
+  #     system("cp -rfv * #{app_dir}")
+  #   end
+  #   Dir.chdir("#{app_dir}") do
+  #     self.dep_path = args[:dep_path]
+  #     dep_path.each do |dep|
+  #       system("cp --parents -rfv #{dep} .")
+  #     end
+  #   end
+  #   $?.exitstatus
+  # end
 
-  def copy_libs(args = {})
-    Dir.chdir("#{app_dir}") do
-      system("/bin/bash -xe /in/functions/copy_libs.sh")
-      $?.exitstatus
-    end
-  end
+  # def copy_libs(args = {})
+  #   Dir.chdir("#{app_dir}") do
+  #     system("/bin/bash -xe /in/functions/copy_libs.sh")
+  #     $?.exitstatus
+  #   end
+  # end
 
   def run_linuxdeployqt(args = {})
-    ENV['PATH']='/app/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-    ENV['LD_LIBRARY_PATH']='/app/usr/lib:/app/usr/lib/x86_64-linux-gnu:/app/usr/lib/Qt-5.7.0:/usr/lib64:/usr/lib'
     ENV.fetch('PATH')
     ENV.fetch('LD_LIBRARY_PATH')
     Dir.chdir("#{app_dir}") do
@@ -151,19 +151,19 @@ class Recipe
     end
   end
 
-  def move_lib(args = {})
-    Dir.chdir("#{app_dir}") do
-      system("/bin/bash -xe /in/functions/move_libs.sh")
-      $?.exitstatus
-    end
-  end
+  # def move_lib(args = {})
+  #   Dir.chdir("#{app_dir}") do
+  #     system("/bin/bash -xe /in/functions/move_libs.sh")
+  #     $?.exitstatus
+  #   end
+  # end
 
-  def delete_blacklisted(args = {})
-    Dir.chdir("#{app_dir}") do
-      system("/bin/bash -xe /in/functions/delete_blacklisted.sh")
-      $?.exitstatus
-    end
-  end
+  # def delete_blacklisted(args = {})
+  #   Dir.chdir("#{app_dir}") do
+  #     system("/bin/bash -xe /in/functions/delete_blacklisted.sh")
+  #     $?.exitstatus
+  #   end
+  # end
 
   def generate_appimage(args = {})
     Dir.chdir("/") do
