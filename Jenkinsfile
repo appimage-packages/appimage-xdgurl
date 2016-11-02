@@ -33,9 +33,9 @@ node('linux') {
 
        stage 'Setup'
 
-            sh '/bin/bash rbenv local 2.3.1'
-            sh '/bin/bash gem install bundler'
-            sh '/bin/bash bundle install'
+            /bin/bash 'rbenv local 2.3.1'
+            /bin/bash 'gem install bundler'
+            /bin/bash 'bundle install'
 
        stage 'build'
 
