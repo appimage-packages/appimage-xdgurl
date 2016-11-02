@@ -33,14 +33,14 @@ node('linux') {
 
        stage 'Setup'
 
-            sh 'source ~/.bashrc'
-            sh 'rbenv local 2.3.1'
-            sh 'gem install bundler'
-            sh 'bundle install'
+            sh '/bin/bash source ~/.bashrc'
+            sh '/bin/bash rbenv local 2.3.1'
+            sh '/bin/bash gem install bundler'
+            sh '/bin/bash bundle install'
 
        stage 'build'
 
-            sh 'bundle exec deploy.rb'
+            sh '/bin/bash bundle exec deploy.rb'
 
         }
 
