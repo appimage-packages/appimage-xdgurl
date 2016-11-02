@@ -31,6 +31,10 @@ node('linux') {
 
             checkout scm
 
+       stage 'Setup'
+
+            sh 'bundle install'
+
        stage 'build'
 
             sh 'bundle exec deploy.rb'
