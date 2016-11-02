@@ -31,9 +31,9 @@ node('linux') {
 
             checkout scm
 
-       stage 'sources'
+       stage 'build'
 
-            echo 'Entering a brave new world'
+            sh 'bundle exec deploy.rb'
 
         }
 
