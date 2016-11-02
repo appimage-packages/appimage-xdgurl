@@ -33,7 +33,7 @@ node('node') {
 
        stage 'sources'
 
-            sh 'echo "It's a start"'
+            echo 'Entering a brave new world'
 
         }
 
