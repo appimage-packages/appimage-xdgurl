@@ -32,7 +32,8 @@ node('linux') {
             checkout scm
 
        stage 'Setup'
-
+       
+            sh 'gem install bundler'
             sh 'bundle install'
 
        stage 'build'
