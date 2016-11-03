@@ -81,7 +81,7 @@ require 'socket'
 host = `hostname`
 
 if host == "scarlett-neon\n"
-  @c.start( 'Privileged' => true,
+  @c.start( 'Privileged' => false,
                       'Binds' => ["/home/scarlett/appimage-packaging/#{name}:/in",
                                "/home/scarlett/appimage-packaging/#{name}/out:/out",
                                "/tmp:/tmp",
