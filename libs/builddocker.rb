@@ -85,6 +85,7 @@ setup_path =`pwd`.gsub(/\n/, "")
 p setup_path
 home = `echo $HOME`
 unless Dir.exist?("#{home}/#{name}/app")
+  Dir.mkdir("#{home}/#{name}")
   Dir.mkdir("#{home}/#{name}/app")
 end
 if host == "scarlett-neon\n"
