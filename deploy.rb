@@ -28,11 +28,10 @@ if RUBY_VERSION =~ /1.9/ # assuming you're running Ruby ~1.9
   Encoding.default_external = Encoding::UTF_8
   Encoding.default_internal = Encoding::UTF_8
 end
-system('bundle install')
 project = 'xdgurl'
 builder = CI.new
 builder.run = [CI::Build.new(project)]
-builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
+builder.cmd = %w[sh -c 'bundle install && rspec /in/spec/recipe_rspec.rb --fail-fast']
 cmd = builder.create_container(project)
 # begin
 #   PTY.spawn( cmd ) do |stdout, stdin, pid|
