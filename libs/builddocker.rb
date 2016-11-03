@@ -83,10 +83,14 @@ require 'socket'
 host = `hostname`
 setup_path =`pwd`.gsub(/\n/, "")
 p setup_path
+home = `echo $HOME`
+unless Dir.exist?("#{home}/#{name}/app")
+  Dir.mkdir("#{home}/#{name}/app")
+end
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
-                      "#{setup_path}/app:/app",
+                      "#{home}/#{name}/app:/app",
                       "#{setup_path}/out:/out",
                         "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
