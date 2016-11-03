@@ -37,12 +37,19 @@ node('linux') {
             sh 'gem install bundler'
             sh 'bundle install'
             sh 'mkdir -p $HOME/sources/xdgurl/app'
-            
+            sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
+
        stage 'build'
 
             sh 'bundle exec deploy.rb'
 
+      stage 'clean'
+
+             sh 'rm -rfv $HOME/sources/xdgurl/app'
+
         }
+
+
 
 
     catch (err) {

@@ -20,4 +20,5 @@
 export PATH=/opt/usr/bin:/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/shims:$PATH
 export WORKSPACE=`pwd`
 echo $WORKSPACE
+sudo chown -R jenkins.jenkins /app
 cd /in && bundle install && rspec spec/recipe_rspec.rb --fail-fast
