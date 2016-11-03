@@ -86,7 +86,7 @@ home = `echo $HOME`
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
-                      "#{home}/#{name}/app:/app",
+                      "#{home}/sources/#{name}/app:/app",
                       "#{setup_path}/out:/out",
                         "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
