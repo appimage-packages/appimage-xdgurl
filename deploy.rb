@@ -28,11 +28,12 @@ if RUBY_VERSION =~ /1.9/ # assuming you're running Ruby ~1.9
   Encoding.default_external = Encoding::UTF_8
   Encoding.default_internal = Encoding::UTF_8
 end
+path = `pwd`
 project = 'xdgurl'
 builder = CI.new
 builder.run = [CI::Build.new(project)]
-#gem install bundler && bundle install && 
-builder.cmd = %w[bash -c /in/setup.sh]
+#gem install bundler && bundle install &&
+builder.cmd = %w[bash -c "#{path}/setup.sh"]
 builder.create_container(project)
 # begin
 #   PTY.spawn( cmd ) do |stdout, stdin, pid|
