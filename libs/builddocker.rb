@@ -81,10 +81,12 @@ class CI
 require 'socket'
 
 host = `hostname`
-
+setup_path =`pwd`.gsub(/\n/, "")
+p setup_path
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
-                      'Binds' => ["/tmp:/tmp"])
+                      'Binds' => ["#{setup_path}:/in",
+                        "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
   @c.start( 'Privileged' => true,
                       'Binds' => ["/home/scarlett/#{name}:/in",
