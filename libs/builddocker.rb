@@ -84,10 +84,7 @@ host = `hostname`
 
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
-                      'Binds' => ["/home/scarlett/appimage-packaging/#{name}:/in",
-                               "/home/scarlett/appimage-packaging/#{name}/out:/out",
-                               "/tmp:/tmp",
-                               "/home/scarlett/appimage-packaging/#{name}/app:/app"])
+                      'Binds' => ["/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
   @c.start( 'Privileged' => true,
                       'Binds' => ["/home/scarlett/#{name}:/in",
