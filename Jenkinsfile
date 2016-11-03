@@ -36,7 +36,8 @@ node('linux') {
             sh 'rbenv local 2.3.1'
             sh 'gem install bundler'
             sh 'bundle install'
-            sh 'mkdir $HOME/sources/xdgurl/app'
+            sh 'mkdir -p $HOME/sources/xdgurl/app'
+            
        stage 'build'
 
             sh 'bundle exec deploy.rb'
