@@ -31,8 +31,9 @@ end
 project = 'xdgurl'
 builder = CI.new
 builder.run = [CI::Build.new(project)]
-builder.cmd = %w[sh -c 'bundle install && rspec /in/spec/recipe_rspec.rb --fail-fast']
-cmd = builder.create_container(project)
+#gem install bundler && bundle install && 
+builder.cmd = %w[bash -c /in/setup.sh]
+builder.create_container(project)
 # begin
 #   PTY.spawn( cmd ) do |stdout, stdin, pid|
 #     begin

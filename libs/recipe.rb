@@ -92,8 +92,8 @@ class Recipe
     #   # system("sed -i -e 's|Exec=.*|Exec=#{name}|g' #{desktop}.desktop")
     #   $?.exitstatus
 
-    end
-  end
+    #end
+  #end
 
   def copy_icon(args = {})
     self.icon = args[:icon]
@@ -138,7 +138,7 @@ class Recipe
   #     system("/bin/bash -xe /in/functions/copy_libs.sh")
   #     $?.exitstatus
   #   end
-  # end
+  #end
 
   def run_linuxdeployqt(args = {})
     ENV.fetch('PATH')

@@ -31,6 +31,7 @@ class CI
       @c = ''
       @binds = ''
       @name = name
+      @container_name = 'sgclark/appimage-packaging-' + @name
     end
   end
   def init_logging
@@ -54,6 +55,7 @@ class CI
     @c = Docker::Container.create(
       'Image' => 'sgclark/trusty-qt57',
       'Cmd' => @cmd,
+      'Name' => @container_name,
       'Volumes' => {
         '/in' => {},
         '/out' => {},
