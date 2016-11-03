@@ -86,6 +86,8 @@ p setup_path
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
+                      "#{setup_path}/app:/app",
+                      "#{setup_path}/out:/out",
                         "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
   @c.start( 'Privileged' => true,
