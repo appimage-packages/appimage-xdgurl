@@ -32,7 +32,8 @@ system('bundle install')
 project = 'xdgurl'
 builder = CI.new
 builder.run = [CI::Build.new(project)]
-builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
+#builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
+builder.cmd = %w[whoami]
 cmd = builder.create_container(project)
 begin
   PTY.spawn( cmd ) do |stdout, stdin, pid|
