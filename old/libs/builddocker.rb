@@ -51,7 +51,7 @@ class CI
   def create_container
     init_logging
     @c = Docker::Container.create(
-      'Image' => 'sgclark/trusty-minimal',
+      'Image' => 'sgclark/trusty-qt57',
       'Cmd' => @cmd,
       'Volumes' => {
         '/in' => {},

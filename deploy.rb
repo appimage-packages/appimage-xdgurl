@@ -32,19 +32,18 @@ system('bundle install')
 project = 'xdgurl'
 builder = CI.new
 builder.run = [CI::Build.new(project)]
-#builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
-builder.cmd = %w[whoami]
+builder.cmd = %w[rspec /in/spec/recipe_rspec.rb --fail-fast]
 cmd = builder.create_container(project)
-begin
-  PTY.spawn( cmd ) do |stdout, stdin, pid|
-    begin
-      # Do stuff with the output here. Just printing to show it works
-      stdout.each { |line| print line }
-    rescue Errno::EIO
-      puts "Errno:EIO error, but this probably just means " +
-            "that the process has finished giving output"
-    end
-  end
-rescue PTY::ChildExited
-  puts "The child process exited!"
-end
+# begin
+#   PTY.spawn( cmd ) do |stdout, stdin, pid|
+#     begin
+#       # Do stuff with the output here. Just printing to show it works
+#       stdout.each { |line| print line }
+#     rescue Errno::EIO
+#       puts "Errno:EIO error, but this probably just means " +
+#             "that the process has finished giving output"
+#     end
+#   end
+# rescue PTY::ChildExited
+#   puts "The child process exited!"
+# end
