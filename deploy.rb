@@ -37,6 +37,7 @@ builder.run = [CI::Build.new(project)]
 unless Dir.exist?("#{home}/#{project}/app")
   Dir.mkdir("#{home}/#{project}")
   Dir.mkdir("#{home}/#{project}/app")
+  File.chown(1000, 1000, "#{home}/#{project}/app" )
 end
 #gem install bundler && bundle install &&
 builder.cmd = %w[bash -c /in/setup.sh]
