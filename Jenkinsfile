@@ -36,6 +36,7 @@ node('linux') {
             sh 'rbenv local 2.3.1'
             sh 'gem install bundler'
             sh 'bundle install'
+            sh 'mkdir -p $HOME/xdgurl/app'
 
        stage 'build'
 
