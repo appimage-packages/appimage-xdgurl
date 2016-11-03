@@ -39,7 +39,7 @@ node('linux') {
 
        stage 'build'
 
-            sh bundle exec deploy.rb'
+            sh 'bundle exec deploy.rb'
 
         }
 
