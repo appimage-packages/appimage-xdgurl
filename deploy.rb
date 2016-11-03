@@ -32,6 +32,7 @@ setup_path = `pwd`
 p setup_path
 project = 'xdgurl'
 builder = CI.new
+home = `echo $HOME`
 builder.run = [CI::Build.new(project)]
 unless Dir.exist?("#{home}/#{project}/app")
   Dir.mkdir("#{home}/#{project}")

@@ -83,7 +83,6 @@ require 'socket'
 host = `hostname`
 setup_path =`pwd`.gsub(/\n/, "")
 p setup_path
-home = `echo $HOME`
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
