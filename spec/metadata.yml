@@ -35,7 +35,7 @@ dependencies:
   - libffi:
       build:
         buildsystem: make
-        buildoptions: './configure --prefix=/app/usr'
+        buildoptions: ''
       depname: libffi-3.0.13
       source:
         type: gz
