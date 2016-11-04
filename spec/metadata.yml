@@ -8,6 +8,7 @@ packages:
   - libjte-dev
   - pkg-config
   - libyaml-dev
+  - libstemmer-dev
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
