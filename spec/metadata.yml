@@ -25,6 +25,22 @@ dep_path:
   - /usr/lib/python2*
   - /usr/bin/python*
 dependencies:
+  - libffi:
+      build:
+        buildsystem: make
+        buildoptions: './configure --prefix=/app/usr'
+      depname: libffi-3.0.13
+      source:
+        type: gz
+        url: ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz
+  - glib:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: glib-2.42.0
+      source:
+        type: xz
+        url: http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.0.tar.xz
   - appstream:
       build:
         buildsystem: cmake
