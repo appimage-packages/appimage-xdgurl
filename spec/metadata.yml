@@ -41,18 +41,18 @@ dependencies:
       build:
         buildsystem: make
         buildoptions: ''
-      depname: libffi-3.0.13
+      depname: libffi-3.2.1
       source:
         type: gz
-        url: ftp://sourceware.org/pub/libffi/libffi-3.0.13.tar.gz
+        url: ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
   - glib:
       build:
         buildsystem: make
         buildoptions: ''
-      depname: glib-2.46.2
+      depname: glib-2.50.0
       source:
         type: xz
-        url: http://ftp.gnome.org/pub/gnome/sources/glib/2.46/glib-2.46.2.tar.xz
+        url: http://ftp.gnome.org/pub/gnome/sources/glib/2.50/glib-2.50.0.tar.xz
   - gobject-introspection:
       build:
         buildsystem: make
