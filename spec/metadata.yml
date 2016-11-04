@@ -5,6 +5,7 @@ packages:
   - gpgv2
   - curl
   - zsync
+  - libjte-dev
   #app specifc
   - python2.7
   - gnome-icon-theme
@@ -16,36 +17,6 @@ packages:
 frameworks:
   build_kf5: false
   frameworks:
-    - extra-cmake-modules
-    - kcoreaddons
-    - ki18n
-    - kitemviews
-    - kconfig
-    - kauth
-    - kcodecs
-    - karchive
-    - kdoctools
-    - kguiaddons
-    - kwidgetsaddons
-    - kconfigwidgets
-    - kiconthemes
-    - kcompletion
-    - kwindowsystem
-    - kcrash
-    - kdbusaddons
-    - kservice
-    - sonnet
-    - ktextwidgets
-    - kglobalaccel
-    - kxmlgui
-    - solid
-    - kbookmarks
-    - kjobwidgets
-    - kio
-    - phonon
-    - knotifications
-    - kwallet
-    - ktextwidgets
 type: git
 url: https://github.com/xdgurl/xdgurl
 buildsystem: qmake
@@ -54,7 +25,7 @@ dep_path:
   - /usr/lib/python2*
   - /usr/bin/python*
 dependencies:
-  - patchelf:
+  - appstream:
       build:
         buildsystem: make
         buildoptions: ''
