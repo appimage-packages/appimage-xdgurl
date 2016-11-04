@@ -27,7 +27,7 @@ node('linux') {
 
     try {
 
-        stage ( 'Preclean' ) {
+        stage( 'Preclean' ) {
             deleteDir()
         }
 
@@ -47,7 +47,7 @@ node('linux') {
       stage( 'Clean' ) {
              sh 'rm -rfv $HOME/sources/xdgurl/app'
       }
-}
+   }
 
 
 
