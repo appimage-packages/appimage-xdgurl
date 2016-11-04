@@ -27,27 +27,32 @@ node('linux') {
 
     try {
 
-       stage 'Checkout'
+        stage ( 'Preclean' ) {
+            deleteDir()
+        }
+
+       stage( 'Checkout' ) {}
 
             checkout scm
 
-       stage 'Setup'
+       }
+       stage( 'Setup' ) {
 
             sh 'rbenv local 2.3.1'
             sh 'gem install bundler'
             sh 'bundle install'
             sh 'mkdir -p $HOME/sources/xdgurl/app'
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
-
-       stage 'build'
+      }
+       stage( 'Build' ) {
 
             sh 'bundle exec deploy.rb'
-
-      stage 'clean'
+      }
+      stage( 'Clean' ) {
 
              sh 'rm -rfv $HOME/sources/xdgurl/app'
-
-        }
+      }
+}
 
 
 
