@@ -3,9 +3,6 @@ packages:
   - automake
   - libarchive-dev
   - gpgv2
-  - libappstream-dev
-  - appstream
-  - appstream-utils
   - curl
   - zsync
   #app specifc
@@ -57,15 +54,14 @@ dep_path:
   - /usr/lib/python2*
   - /usr/bin/python*
 dependencies:
-  - cmake:
+  - patchelf:
       build:
         buildsystem: make
         buildoptions: ''
-      depname: CMake
+      depname: AppStream-0.10.3
       source:
-        type: git
-        url: https://github.com/Kitware/CMake
-        branch: 'master'
+        type: xz
+        url:  https://www.freedesktop.org/software/appstream/releases/AppStream-0.10.3.tar.xz
   - appimage:
       build:
         buildsystem: custom
