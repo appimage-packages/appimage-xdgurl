@@ -9,7 +9,6 @@ packages:
   - pkg-config
   - libyaml-dev
   - libstemmer-dev
-  - gobject-introspection
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
@@ -52,6 +51,14 @@ dependencies:
       source:
         type: xz
         url: http://ftp.gnome.org/pub/gnome/sources/glib/2.46/glib-2.46.2.tar.xz
+  - gobject-introspection:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gobject-introspection-1.50.0
+      source:
+        type: xz
+        url:   http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.50/gobject-introspection-1.50.0.tar.xz
   - appstream:
       build:
         buildsystem: cmake
