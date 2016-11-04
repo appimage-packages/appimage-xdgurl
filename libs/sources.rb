@@ -22,8 +22,6 @@ require 'yaml'
 
 class Sources
   attr_accessor :name
- ENV['PATH']='/app/usr/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
- ENV['LD_LIBRARY_PATH']='/app/usr/lib:/app/usr/lib/x86_64-linux-gnu:/opt/usr/lib/Qt-5.7.0:/usr/lib64:/usr/lib'
 
   def initialize()
     Dir.chdir('/')
@@ -76,8 +74,19 @@ class Sources
   end
 
   def run_build(name, buildsystem, options)
+    ENV['PATH']='/opt/usr/bin:/app/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    ENV['LD_LIBRARY_PATH']='/opt/usr/lib:/app/usr/lib:/app/usr/lib/x86_64-linux-gnu:/opt/usr/lib/Qt-5.7.0:/usr/lib64:/usr/lib:/lib:/lib64'
+    ENV['CPLUS_INCLUDE_PATH']='/app/usr/include:/opt/usr/include:/usr/include'
+    ENV['CFLAGS']="-g -O2 -fPIC"
+    ENV['PKG_CONFIG_PATH']='/app/usr/lib/x86_64-linux-gnu/pkgconfig:/app/usr/lib/pkgconfig:/app/usr/share/pkgconfig:/usr/share/pkgconfig:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig'
+    ENV['ACLOCAL_PATH']='/app/usr/share/aclocal:/usr/share/aclocal'
     ENV.fetch('PATH')
     ENV.fetch('LD_LIBRARY_PATH')
+    ENV.fetch('CFLAGS')
+    ENV.fetch('PKG_CONFIG_PATH')
+    ENV.fetch('ACLOCAL_PATH')
+    ENV.fetch('CPLUS_INCLUDE_PATH')
+
     case "#{buildsystem}"
     when 'make'
       Dir.chdir("/app/src/#{name}") do
