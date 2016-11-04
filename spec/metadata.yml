@@ -13,6 +13,7 @@ packages:
   - bison
   - libmount-dev
   - python-dev
+  - itstool
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
