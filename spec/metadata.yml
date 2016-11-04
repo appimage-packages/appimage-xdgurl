@@ -1,5 +1,6 @@
 name: xdgurl
 packages:
+  - automake
   #app specifc
   - python2.7
   - gnome-icon-theme
