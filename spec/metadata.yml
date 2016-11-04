@@ -11,6 +11,7 @@ packages:
   - libstemmer-dev
   - flex
   - bison
+  - libmount-dev
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
