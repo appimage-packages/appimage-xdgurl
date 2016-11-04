@@ -9,6 +9,8 @@ packages:
   - pkg-config
   - libyaml-dev
   - libstemmer-dev
+  - flex
+  - bison
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
