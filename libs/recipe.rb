@@ -46,8 +46,8 @@ class Recipe
     self.name = args[:name]
     self.arch = `arch`
     self.install_path = '/app/usr'
-    self.app_dir = "/app/#{name}.AppDir"
-    Dir.mkdir("#{app_dir}")
+    # self.app_dir = "/app/#{name}.AppDir"
+    # Dir.mkdir("#{app_dir}")
   end
 
   def clean_workspace(args = {})
