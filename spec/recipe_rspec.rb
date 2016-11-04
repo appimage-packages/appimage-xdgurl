@@ -31,7 +31,6 @@ describe Recipe do
   describe "#initialize" do
     it "Sets the application name" do
       expect(app.name).to eq metadata['name']
-      expect(metadata['dependencies'][1].key?('appimage')).to be(true), "Appimage is missing and it cannot be ommited"
     end
   end
 
