@@ -7,7 +7,6 @@ packages:
   - zsync
   - libjte-dev
   #app specifc
-  - python2.7
   - gnome-icon-theme
   - python-wxgtk2.8
   - python-tk
@@ -25,6 +24,14 @@ dep_path:
   - /usr/lib/python2*
   - /usr/bin/python*
 dependencies:
+  - appimage:
+      build:
+        buildsystem: custom
+        buildoptions: ./build.sh
+      depname: AppImageKit
+      source:
+        type: git
+        url: https://github.com/probonopd/AppImageKit
   - libffi:
       build:
         buildsystem: make
@@ -49,14 +56,6 @@ dependencies:
       source:
         type: xz
         url:  https://www.freedesktop.org/software/appstream/releases/AppStream-0.10.3.tar.xz
-  - appimage:
-      build:
-        buildsystem: custom
-        buildoptions: ./build.sh
-      depname: AppImageKit
-      source:
-        type: git
-        url: https://github.com/probonopd/AppImageKit
   - appimagetool:
       build:
         buildsystem: custom

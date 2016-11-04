@@ -68,9 +68,6 @@ describe Recipe do
         expect(sources.run_build(name, buildsystem, options)).to be(0), " Expected 0 exit Status"
       end
       system('sh /in/functions/env.sh')
-      cmake_version = `cmake --version`
-      p cmake_version
-      #expect("#{cmake_version}").to be > 3
     end
   end
 

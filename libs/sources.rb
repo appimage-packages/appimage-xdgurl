@@ -50,6 +50,12 @@ class Sources
         system("wget #{url}")
         system("tar -xvf #{name}*.tar.xz")
       end
+    when 'gz'
+      Dir.chdir('/app/src/')
+      unless Dir.exist?("/app/src/#{name}")
+        system("wget #{url}")
+        system("tar -zxvf #{name}*.tar.gz")
+      end
     when 'bz2'
       Dir.chdir('/app/src/')
       unless Dir.exist?("/app/src/#{name}")
