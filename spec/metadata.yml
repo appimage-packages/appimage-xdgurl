@@ -27,7 +27,7 @@ dep_path:
 dependencies:
   - appstream:
       build:
-        buildsystem: make
+        buildsystem: cmake
         buildoptions: ''
       depname: AppStream-0.10.3
       source:
