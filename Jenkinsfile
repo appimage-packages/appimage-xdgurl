@@ -31,13 +31,10 @@ node('linux') {
             deleteDir()
         }
 
-       stage( 'Checkout' ) {}
-
+       stage( 'Checkout' ) {
             checkout scm
-
        }
        stage( 'Setup' ) {
-
             sh 'rbenv local 2.3.1'
             sh 'gem install bundler'
             sh 'bundle install'
@@ -45,11 +42,9 @@ node('linux') {
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
       }
        stage( 'Build' ) {
-
             sh 'bundle exec deploy.rb'
       }
       stage( 'Clean' ) {
-
              sh 'rm -rfv $HOME/sources/xdgurl/app'
       }
 }
