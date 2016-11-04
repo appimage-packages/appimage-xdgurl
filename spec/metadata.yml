@@ -2,6 +2,12 @@ name: xdgurl
 packages:
   - automake
   - libarchive-dev
+  - gpgv2
+  - libappstream-dev
+  - appstream
+  - appstream-utils
+  - curl
+  - zsync
   #app specifc
   - python2.7
   - gnome-icon-theme
