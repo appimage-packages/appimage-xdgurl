@@ -86,7 +86,7 @@ class Sources
     ENV.fetch('PKG_CONFIG_PATH')
     ENV.fetch('ACLOCAL_PATH')
     ENV.fetch('CPLUS_INCLUDE_PATH')
-
+    system( "echo $PATH" )
     case "#{buildsystem}"
     when 'make'
       Dir.chdir("/app/src/#{name}") do

@@ -45,10 +45,10 @@ dependencies:
       build:
         buildsystem: make
         buildoptions: ''
-      depname: glib-2.42.0
+      depname: glib-2.46.0
       source:
         type: xz
-        url: http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.42.0.tar.xz
+        url: http://ftp.gnome.org/pub/gnome/sources/glib/2.42/glib-2.46.0.tar.xz
   - appstream:
       build:
         buildsystem: cmake
