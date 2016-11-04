@@ -7,6 +7,7 @@ packages:
   - zsync
   - libjte-dev
   - pkg-config
+  - libyaml-dev
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
