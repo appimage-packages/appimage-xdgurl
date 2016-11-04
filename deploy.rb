@@ -34,7 +34,6 @@ project = 'xdgurl'
 builder = CI.new
 home = `echo $HOME`
 builder.run = [CI::Build.new(project)]
-#gem install bundler && bundle install &&
 builder.cmd = %w[bash -c /in/setup.sh]
 builder.create_container(project)
 # begin

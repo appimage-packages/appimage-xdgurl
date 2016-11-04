@@ -28,7 +28,7 @@ dependencies:
   - appstream:
       build:
         buildsystem: cmake
-        buildoptions: ''
+        buildoptions: '-DCMAKE_INSTALL_PREFIX=/app/usr'
       depname: AppStream-0.10.3
       source:
         type: xz
