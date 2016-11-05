@@ -73,7 +73,7 @@ class Sources
     $?.exitstatus
   end
 
-  def run_build(name, buildsystem, options)
+  def run_build(name, buildsystem, autoreconf, options)
     ENV['PATH']='/opt/usr/bin:/app/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
     ENV['LD_LIBRARY_PATH']='/opt/usr/lib:/app/usr/lib:/app/usr/lib/x86_64-linux-gnu:/opt/usr/lib/Qt-5.7.0:/usr/lib64:/usr/lib:/lib:/lib64'
     ENV['CPLUS_INCLUDE_PATH']='/app/usr/include:/opt/usr/include:/usr/include'
@@ -90,15 +90,23 @@ class Sources
     case "#{buildsystem}"
     when 'make'
       Dir.chdir("/app/src/#{name}") do
-        p "running ./configure --prefix=/app/usr #{options}"
-        system("./configure --prefix=/app/usr #{options}")
-        system('make -j 8 && sudo make install prefix=/app/usr')
+        unless "#{autoreconf}"
+          cmd = "mkdir build && cd build && #{options} && make -j 8 && make install prefix=/app/usr"
+          p "Running " + cmd
+          system(cmd)
+        end
+        if "#{autoreconfs}"
+          p "Running " + cmd
+          cmd = "autoreconf --force --install && mkdir build && cd build && ../configure --prefix=/app/usr #{options} &&  make -j 8 && make install prefix=/app/usr"
+          system(cmd)
+        end
       end
+
+
     when 'cmake'
       Dir.chdir("/app/src/#{name}") do
         p "running cmake #{options}"
-        system("mkdir build && cd build && cmake #{options} ../")
-        system('make -j 8 && sudo make install')
+        system("mkdir build && cd build && cmake #{options} ../ make -j 8 && make install")
       end
     when 'custom'
       unless "#{name}" == 'cpan'

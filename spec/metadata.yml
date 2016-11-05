@@ -44,6 +44,7 @@ dependencies:
   - libffi:
       build:
         buildsystem: make
+        autoreconf: false
         buildoptions: ''
       depname: libffi-3.2.1
       source:
@@ -52,6 +53,7 @@ dependencies:
   - glib:
       build:
         buildsystem: make
+        autoreconf: true
         buildoptions: ''
       depname: glib-2.50.0
       source:
@@ -60,6 +62,7 @@ dependencies:
   - gobject-introspection:
       build:
         buildsystem: make
+        autoreconf: true
         buildoptions: ''
       depname: gobject-introspection-1.50.0
       source:
@@ -92,6 +95,7 @@ dependencies:
   - patchelf:
       build:
         buildsystem: make
+        autoreconf: true
         buildoptions: ''
       depname: patchelf-0.9
       source:
