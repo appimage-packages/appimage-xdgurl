@@ -66,10 +66,11 @@ describe Recipe do
         unless name == 'cpan'
           expect(Dir.exist?("/app/src/#{name}")).to be(true), "#{name} directory does not exist, something went wrong with source retrieval"
         end
-        if buildsystem == 'make'
-          expect(sources.run_build(name, buildsystem, autoreconf, options)).to be(0), " Expected 0 exit Status"
-        else
+        unless buildsystem == 'make'
           expect(sources.run_build(name, buildsystem, options)).to be(0), " Expected 0 exit Status"
+        else
+        if buildsystem == 'make'
+          expect(sources.run_build(name, buildsystem, options, autoreconf)).to be(0), " Expected 0 exit Status"
         end
       end
     end
