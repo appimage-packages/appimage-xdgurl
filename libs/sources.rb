@@ -95,7 +95,7 @@ class Sources
           p "Running " + cmd
           system(cmd)
         end
-        if "#{autoreconfs}"
+        if "#{autoreconf}"
           p "Running " + cmd
           cmd = "autoreconf --force --install && mkdir build && cd build && ../configure --prefix=/app/usr #{options} &&  make -j 8 && make install prefix=/app/usr"
           system(cmd)
