@@ -68,7 +68,7 @@ describe Recipe do
         end
         unless buildsystem == 'make'
           expect(sources.run_build(name, buildsystem, options)).to be(0), " Expected 0 exit Status"
-        else
+        end
         if buildsystem == 'make'
           expect(sources.run_build(name, buildsystem, options, autoreconf)).to be(0), " Expected 0 exit Status"
         end
