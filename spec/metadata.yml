@@ -36,7 +36,7 @@ dependencies:
   - appimage:
       build:
         buildsystem: custom
-        buildoptions: ./build.sh
+        buildoptions: functions/build_appimage.sh
       depname: AppImageKit
       source:
         type: git
