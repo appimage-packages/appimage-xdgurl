@@ -91,7 +91,7 @@ class Sources
     when 'make'
       Dir.chdir("/app/src/#{name}") do
         unless "#{autoreconf}" == true
-          cmd = "mkdir build && cd build && #{options} && make -j 8 && make install prefix=/app/usr"
+          cmd = "mkdir build && cd build && ./configure prefix=/app/usr #{options} && make -j 8 && make install"
           p "Running " + cmd
           system(cmd)
         end
