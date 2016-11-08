@@ -40,8 +40,8 @@ node('linux') {
             sh 'bundle install'
             sh "export WORKSPACE=`pwd`"
             sh 'mkdir -p $HOME/appimages/xdgurl/appimage'
-            sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
-            sh 'chown -R jenkins.jenkins $HOME/appimages/xdgurl/appimage'
+            sh 'sudo chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
+            sh 'sudo chown -R jenkins.jenkins $HOME/appimages/xdgurl/appimage'
       }
        stage( 'Build' ) {
             sh 'bundle exec deploy.rb'
