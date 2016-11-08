@@ -58,7 +58,7 @@ class CI
       'Name' => @container_name,
       'Volumes' => {
         '/in' => {},
-        '/out' => {},
+        '/appimage' => {},
         '/app' => {},
         '/lib/modules' => {},
         '/tmp' => {}
@@ -87,7 +87,7 @@ if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
                       "#{home}/sources/#{name}/app:/app",
-                      "#{setup_path}/out:/out",
+                      "#{setup_path}/appimages/#{name}/appimage:/appimage",
                         "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
   @c.start( 'Privileged' => true,
