@@ -40,7 +40,7 @@ dependencies:
       depname: AppImageKit
       source:
         type: git
-        url: https://github.com/probonopd/AppImageKit
+        url: https://github.com/appimage-packages/AppImageKit
   - libffi:
       build:
         buildsystem: make
