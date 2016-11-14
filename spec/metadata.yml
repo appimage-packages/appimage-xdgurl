@@ -73,7 +73,7 @@ dependencies:
       build:
         buildsystem: make
         autoreconf: true
-       buildoptions: ''
+        buildoptions: ''
       depname: libxml2-2.9.4
       source:
         type: gz
