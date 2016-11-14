@@ -29,6 +29,8 @@ node('linux') {
 
         stage( 'Preclean' ) {
             deleteDir()
+            sh 'rm -rfv $HOME/sources/xdgurl/app'
+            sh 'rm -rfv $HOME/appimages/xdgurl/appimage'
         }
 
        stage( 'Checkout' ) {
@@ -39,7 +41,7 @@ node('linux') {
             sh 'gem install bundler'
             sh 'bundle install'
             sh 'mkdir $HOME/sources/xdgurl/app'
-            sh '$HOME/appimages/xdgurl/appimage'
+            sh 'mkdir $HOME/appimages/xdgurl/appimage'
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
             sh 'chown -R jenkins.jenkins $HOME/appimages/xdgurl/appimage'
       }
