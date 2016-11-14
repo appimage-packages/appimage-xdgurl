@@ -52,15 +52,6 @@ dependencies:
       source:
         type: xz
         url: http://ftp.gnome.org/pub/gnome/sources/glib/2.50/glib-2.50.0.tar.xz
-  - gobject-introspection:
-      build:
-        buildsystem: make
-        autoreconf: true
-        buildoptions: ''
-      depname: gobject-introspection-1.50.0
-      source:
-        type: xz
-        url:   http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.50/gobject-introspection-1.50.0.tar.xz
   - python2:
       build:
         buildsystem: make
@@ -70,6 +61,15 @@ dependencies:
       source:
         type: xz
         url: https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
+  - gobject-introspection:
+      build:
+        buildsystem: make
+        autoreconf: true
+        buildoptions: ''
+      depname: gobject-introspection-1.50.0
+      source:
+        type: xz
+        url:   http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.50/gobject-introspection-1.50.0.tar.xz
   - libxml2:
       build:
         buildsystem: make
