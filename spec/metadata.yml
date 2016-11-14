@@ -15,6 +15,7 @@ packages:
   - python-dev
   - itstool
   - xmlto
+  - libgtk2.0-dev
   #app specifc
   - gnome-icon-theme
   - python-wxgtk2.8
