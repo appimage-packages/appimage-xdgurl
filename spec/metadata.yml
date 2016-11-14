@@ -12,16 +12,11 @@ packages:
   - flex
   - bison
   - libmount-dev
-  - python-dev
   - itstool
   - xmlto
   - libgtk2.0-dev
   #app specifc
   - gnome-icon-theme
-  - python-wxgtk2.8
-  - python-tk
-  - python-gtk2
-  - python-vte
   - tcl8.4-dev
 frameworks:
   build_kf5: false
@@ -30,9 +25,6 @@ type: git
 url: https://github.com/xdgurl/xdgurl
 buildsystem: qmake
 buildoptions: "qmake xdgurl.pro"
-dep_path:
-  - /usr/lib/python2*
-  - /usr/bin/python*
 dependencies:
   - appimage:
       build:
@@ -69,6 +61,15 @@ dependencies:
       source:
         type: xz
         url:   http://ftp.gnome.org/pub/gnome/sources/gobject-introspection/1.50/gobject-introspection-1.50.0.tar.xz
+  - python2:
+      build:
+        buildsystem: make
+        autoreconf: true
+        buildoptions: ''
+      depname: Python-2.7.12
+      source:
+        type: xz
+        url: https://www.python.org/ftp/python/2.7.12/Python-2.7.12.tar.xz
   - libxml2:
       build:
         buildsystem: make
