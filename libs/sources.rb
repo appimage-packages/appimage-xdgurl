@@ -87,6 +87,11 @@ class Sources
     ENV.fetch('ACLOCAL_PATH')
     ENV.fetch('CPLUS_INCLUDE_PATH')
     system( "echo $PATH" )
+    `echo LD_LIBRARY_PATH`
+    `echo CFLAGS`
+    `echo PKG_CONFIG_PATH`
+    `echo ACLOCAL_PATH`
+    `echo CPLUS_INCLUDE_PATH`
     case "#{buildsystem}"
     when 'make'
       Dir.chdir("/app/src/#{name}") do
@@ -101,8 +106,6 @@ class Sources
           system(cmd)
         end
       end
-
-
     when 'cmake'
       Dir.chdir("/app/src/#{name}") do
         p "running cmake #{options}"
