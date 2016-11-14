@@ -79,6 +79,15 @@ dependencies:
       source:
         type: gz
         url:  http://xmlsoft.org/sources/libxml2-2.9.4.tar.gz
+  - yaml:
+      build:
+        buildsystem: make
+        autoreconf: true
+        buildoptions: ''
+      depname: yaml-0.1.6
+      source:
+        type: gz
+        url: http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz
   - appstream:
       build:
         buildsystem: cmake
