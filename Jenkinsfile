@@ -38,7 +38,8 @@ node('linux') {
             sh 'rbenv local 2.3.1'
             sh 'gem install bundler'
             sh 'bundle install'
-            sh "export WORKSPACE=`pwd`"
+            sh 'mkdir $HOME/sources/xdgurl/app'
+            sh '$HOME/appimages/xdgurl/appimage'
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
             sh 'chown -R jenkins.jenkins $HOME/appimages/xdgurl/appimage'
       }

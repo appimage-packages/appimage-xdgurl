@@ -106,7 +106,7 @@ class Sources
     when 'cmake'
       Dir.chdir("/app/src/#{name}") do
         p "running cmake #{options}"
-        system("mkdir #{name}-build  && cd #{name}-build  && cmake #{options} ../ make -j 8 && make install")
+        system("mkdir #{name}-build  && cd #{name}-build  && cmake #{options} && make -j 8 && make install")
       end
     when 'custom'
       unless "#{name}" == 'cpan'
