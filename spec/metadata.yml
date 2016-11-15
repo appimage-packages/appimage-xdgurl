@@ -7,7 +7,6 @@ packages:
   - zsync
   - libjte-dev
   - pkg-config
-  - libyaml-dev
   - libstemmer-dev
   - flex
   - bison
@@ -88,6 +87,14 @@ dependencies:
       source:
         type: gz
         url: http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz
+  - gettext:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gettext-0.19.7
+      source:
+        type: gz
+        url: ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.7.tar.gz
   - appstream:
       build:
         buildsystem: cmake
