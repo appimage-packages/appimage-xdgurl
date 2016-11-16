@@ -51,6 +51,14 @@ dependencies:
       source:
         type: xz
         url: http://ftp.gnome.org/pub/gnome/sources/glib/2.50/glib-2.50.0.tar.xz
+  - gettext:
+      build:
+        buildsystem: make
+        buildoptions: ''
+      depname: gettext-0.19.7
+      source:
+        type: gz
+        url: ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.7.tar.gz
   - python2:
       build:
         buildsystem: make
@@ -87,14 +95,6 @@ dependencies:
       source:
         type: gz
         url: http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz
-  - gettext:
-      build:
-        buildsystem: make
-        buildoptions: ''
-      depname: gettext-0.19.7
-      source:
-        type: gz
-        url: ftp://ftp.gnu.org/gnu/gettext/gettext-0.19.7.tar.gz
   - appstream:
       build:
         buildsystem: cmake
