@@ -60,12 +60,7 @@ node('linux') {
 
         currentBuild.result = "FAILURE"
 
-            mail body: "project build error is here: ${env.BUILD_URL}" ,
-            from: 'jenkins@localhost',
-            replyTo: 'scarlett.gately.clark@gmail.com',
-            subject: 'project build failed',
-            to: 'scarlett.gately.clark@gmail.com'
-
+            echo "FAILURE"
         throw err
     }
 
