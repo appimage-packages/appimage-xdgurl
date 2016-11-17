@@ -25,6 +25,7 @@ class Sources
 
   def initialize()
     Dir.chdir('/')
+    system('ls -l')
     unless Dir.exist?("/app/src")
       Dir.mkdir("/app/src")
     end
