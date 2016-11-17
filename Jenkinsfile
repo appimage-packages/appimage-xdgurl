@@ -38,8 +38,8 @@ node('linux') {
        }
        stage( 'Setup' ) {
             sh 'bundle install'
-            sh 'mkdir $HOME/sources/xdgurl/app'
-            sh 'mkdir $HOME/appimages/xdgurl/appimage'
+            sh 'mkdir -p $HOME/sources/xdgurl/app'
+            sh 'mkdir -p $HOME/appimages/xdgurl/appimage'
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
             sh 'chown -R jenkins.jenkins $HOME/appimages/xdgurl/appimage'
       }
