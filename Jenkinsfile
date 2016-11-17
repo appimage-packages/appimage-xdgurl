@@ -38,7 +38,7 @@ node('linux') {
        }
        stage( 'Setup' ) {
             sh 'bundle install'
-            export WORKSPACE=`pwd`
+            def WORKSPACE=pwd()
             sh 'mkdir -p $HOME/sources/xdgurl/app'
             sh 'mkdir -p $HOME/appimages/xdgurl/appimage'
             sh 'chown -R jenkins.jenkins $HOME/sources/xdgurl/app'
