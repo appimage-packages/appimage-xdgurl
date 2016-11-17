@@ -37,6 +37,7 @@ node('linux') {
             checkout scm
        }
        stage( 'Setup' ) {
+            sh 'gem install bundler'
             sh 'bundle install'
             sh 'mkdir $HOME/sources/xdgurl/app'
             sh 'mkdir $HOME/appimages/xdgurl/appimage'
