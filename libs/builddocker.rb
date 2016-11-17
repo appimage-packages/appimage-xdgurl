@@ -102,10 +102,11 @@ elsif  host == "scarlett-neon-unstable\n"
                                "/tmp:/tmp",
                                "/home/scarlett/appimage-packaging/#{name}/app:/app"])
 else
-  @c.start( 'Privileged' => true,
-                    'Binds' => ["/home/jenkins/workspace/appimage-#{name}/:/in",
-                             "/tmp:/tmp",
-                              "/home/jenkins/workspace/appimage-#{name}/app:/app"])
+  @c.start( 'Privileged' => false,
+                      'Binds' => ["#{setup_path}:/in",
+                      "#{home}/sources/#{name}/app:/app",
+                      "#{home}/appimages/#{name}/appimage:/appimage",
+                        "/tmp:/tmp"])
 end
     ret = @c.wait
     status_code = ret.fetch('StatusCode', 1)
