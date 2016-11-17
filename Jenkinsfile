@@ -37,8 +37,6 @@ node('linux') {
             checkout scm
        }
        stage( 'Setup' ) {
-            sh 'rbenv local 2.3.1'
-            sh 'gem install bundler'
             sh 'bundle install'
             sh 'mkdir $HOME/sources/xdgurl/app'
             sh 'mkdir $HOME/appimages/xdgurl/appimage'
