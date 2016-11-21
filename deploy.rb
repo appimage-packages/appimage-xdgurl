@@ -32,14 +32,14 @@ setup_path = `pwd`
 p setup_path
 project = 'xdgurl'
 builder = CI.new
-unless Dir.exist?('/app')
-  Dir.mkdir('/app')
+unless Dir.exist?('app')
+  Dir.mkdir('app')
 end
-unless Dir.exist?('/appimage')
+unless Dir.exist?('appimage')
   Dir.mkdir('appimage')
 end
-unless Dir.exist?('/out')
-  Dir.mkdir('/out')
+unless Dir.exist?('out')
+  Dir.mkdir('out')
 end
 builder.run = [CI::Build.new(project)]
 builder.cmd = %w[bash -c /in/setup.sh]
