@@ -106,10 +106,10 @@ elsif  host == "scarlett-neon-unstable\n"
                                "/home/scarlett/appimage-packaging/#{name}/app:/app"])
 else
   @c.start('Privileged' => false,
-                 'Binds' => [ "#{setup_path}/out:/out",
-                                     "#{setup_path}:/in",
-                                     "#{setup_path}/app:/app",
-                                     "#{setup_path}/appimage:/appimage",
+                 'Binds' => [ "/home/jenkins/workspace/pipeline-xdgurl-appimage/out:/out",
+                                     "/home/jenkins/workspace/pipeline-xdgurl-appimage:/in",
+                                     "/home/jenkins/workspace/pipeline-xdgurl-appimage/app:/app",
+                                     "/home/jenkins/workspace/pipeline-xdgurl-appimage/appimage:/appimage",
                                      "/tmp:/tmp"])
 end
     ret = @c.wait
