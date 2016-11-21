@@ -84,6 +84,7 @@ require 'socket'
 host = `hostname`
 setup_path =`pwd`.gsub(/\n/, "")
 home = `echo $HOME`
+p setup_path
 if host == "scarlett-neon\n"
   @c.start( 'Privileged' => false,
                       'Binds' => ["#{setup_path}:/in",
@@ -91,11 +92,12 @@ if host == "scarlett-neon\n"
                       "#{home}/appimages/#{name}/appimage:/appimage",
                         "/tmp:/tmp"])
 elsif  host == "scarlett-maui-desktop\n"
-  @c.start( 'Privileged' => true,
-                      'Binds' => ["/home/scarlett/#{name}:/in",
-                               "/home/scarlett/#{name}/out:/out",
-                               "/tmp:/tmp",
-                               "/home/scarlett/#{name}/app:/app"])
+  @c.start( 'Privileged' => false,
+                      'Binds' => [ "#{setup_path}/out:/out",
+                                          "#{setup_path}:/in",
+                                          "#{setup_path}/app:/app",
+                                          "#{setup_path}/appimage:/appimage",
+                                          "/tmp:/tmp"])
 elsif  host == "scarlett-neon-unstable\n"
   @c.start( 'Privileged' => true,
                       'Binds' => ["/home/scarlett/appimage-packaging/#{name}:/in",
@@ -106,8 +108,8 @@ else
   @c.start('Privileged' => false,
                  'Binds' => [ "#{setup_path}/out:/out",
                                      "#{setup_path}:/in",
-                                     "#{home}/sources/#{name}/app:/app",
-                                     "#{home}/appimages/#{name}/appimage:/appimage",
+                                     "#{setup_path}/app:/app",
+                                     "#{setup_path}/appimage:/appimage",
                                      "/tmp:/tmp"])
 end
     ret = @c.wait

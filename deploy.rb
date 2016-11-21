@@ -33,6 +33,9 @@ p setup_path
 project = 'xdgurl'
 builder = CI.new
 home = `echo $HOME`
+Dir.mkdir "#{setup_path}/app"
+Dir.mkdir "#{setup_path}/appimage"
+Dir.mkdir "#{setup_path}/out"
 builder.run = [CI::Build.new(project)]
 builder.cmd = %w[bash -c /in/setup.sh]
 builder.create_container(project)

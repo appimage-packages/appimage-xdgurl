@@ -29,8 +29,6 @@ node('linux') {
 
         stage( 'Preclean' ) {
             deleteDir()
-            sh 'rm -rfv $HOME/sources/xdgurl/app'
-            sh 'rm -rfv $HOME/appimages/xdgurl/appimage'
         }
 
        stage( 'Checkout' ) {
@@ -39,8 +37,6 @@ node('linux') {
        stage( 'Setup' ) {
             sh 'bundle install'
             def WORKSPACE=pwd()
-            sh 'mkdir -p $HOME/sources/xdgurl/app'
-            sh 'mkdir -p $HOME/appimages/xdgurl/appimage'
       }
        stage( 'Build' ) {
             sh 'bundle exec deploy.rb'
