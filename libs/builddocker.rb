@@ -105,7 +105,7 @@ elsif  host == "scarlett-neon-unstable\n"
                                "/tmp:/tmp",
                                "/home/scarlett/appimage-packaging/#{name}/app:/app"])
 else
-  @c.start('Privileged' => false,
+  @c.start('Privileged' => true,
                  'Binds' => [ "/home/jenkins/workspace/pipeline-xdgurl-appimage/out:/out",
                                      "/home/jenkins/workspace/pipeline-xdgurl-appimage:/in",
                                      "/home/jenkins/workspace/pipeline-xdgurl-appimage/app:/app",
