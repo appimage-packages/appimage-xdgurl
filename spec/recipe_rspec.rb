@@ -217,6 +217,7 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
+      expect(app.render).to eq 0
       expect(app.generate_appimage()).to eq 0
       expect(File.exist?("/appimage/*.AppImage")).to be(true), "Something went wrong, no AppImage"
       app.clean_workspace
