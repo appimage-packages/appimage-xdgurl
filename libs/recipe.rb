@@ -139,16 +139,16 @@ class Recipe
   #   end
   #end
 
-  def run_linuxdeployqt(args = {})
-    ENV.fetch('PATH')
-    ENV.fetch('LD_LIBRARY_PATH')
-    Dir.chdir("#{app_dir}") do
-      system('cp /app/src/AppImageKit/AppImage* /app/usr/bin')
-      #  -executable=/app/usr/lib/firefox-48.0/kmozillahelper   -no-strip
-      system('strace -c /app/linuxdeployqt /app/usr/bin/xdgurl -appimage -verbose=3 -always-overwrite -no-strip')
-      $?.exitstatus
-    end
-  end
+  # def run_linuxdeployqt(args = {})
+  #   ENV.fetch('PATH')
+  #   ENV.fetch('LD_LIBRARY_PATH')
+  #   Dir.chdir("#{app_dir}") do
+  #     system('cp /app/src/AppImageKit/AppImage* /app/usr/bin')
+  #     #  -executable=/app/usr/lib/firefox-48.0/kmozillahelper   -no-strip
+  #     system('strace -c /app/linuxdeployqt /app/usr/bin/xdgurl -appimage -verbose=3 -always-overwrite -no-strip')
+  #     $?.exitstatus
+  #   end
+  # end
 
   # def move_lib(args = {})
   #   Dir.chdir("#{app_dir}") do
@@ -166,7 +166,8 @@ class Recipe
 
   def generate_appimage(args = {})
     Dir.chdir("/") do
-      system('mv /app/usr/lib/*.AppImage /out/')
+      system("cp -rfv /app/usr /xdgurl.AppDir"
+      system('/in/functions/build_appimage.sh')
     end
     $?.exitstatus
   end

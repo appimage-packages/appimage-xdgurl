@@ -95,39 +95,39 @@ dependencies:
       source:
         type: gz
         url: http://pyyaml.org/download/libyaml/yaml-0.1.6.tar.gz
-  - appstream:
-      build:
-        buildsystem: cmake
-        buildoptions: '-DCMAKE_INSTALL_PREFIX=/app/usr'
-      depname: AppStream-0.10.3
-      source:
-        type: xz
-        url:  https://www.freedesktop.org/software/appstream/releases/AppStream-0.10.3.tar.xz
-  - appimagetool:
-      build:
-        buildsystem: custom
-        buildoptions: ./build.sh
-      depname: appimagetool
-      source:
-        type: git
-        url: https://github.com/probonopd/appimagetool.git
-  - linuxdeployqt:
-      build:
-        buildsystem: qmake
-        buildoptions: linuxdeployqt.pro
-      depname: linuxdeployqt
-      source:
-        type: git
-        url: https://github.com/probonopd/linuxdeployqt.git
-  - patchelf:
-      build:
-        buildsystem: make
-        autoreconf: true
-        buildoptions: ''
-      depname: patchelf-0.9
-      source:
-        type: bz2
-        url: https://nixos.org/releases/patchelf/patchelf-0.9/patchelf-0.9.tar.bz2
+  # - appstream:
+  #     build:
+  #       buildsystem: cmake
+  #       buildoptions: '-DCMAKE_INSTALL_PREFIX=/app/usr'
+  #     depname: AppStream-0.10.3
+  #     source:
+  #       type: xz
+  #       url:  https://www.freedesktop.org/software/appstream/releases/AppStream-0.10.3.tar.xz
+  # - appimagetool:
+  #     build:
+  #       buildsystem: custom
+  #       buildoptions: ./build.sh
+  #     depname: appimagetool
+  #     source:
+  #       type: git
+  #       url: https://github.com/probonopd/appimagetool.git
+  # - linuxdeployqt:
+  #     build:
+  #       buildsystem: qmake
+  #       buildoptions: linuxdeployqt.pro
+  #     depname: linuxdeployqt
+  #     source:
+  #       type: git
+  #       url: https://github.com/probonopd/linuxdeployqt.git
+  # - patchelf:
+  #     build:
+  #       buildsystem: make
+  #       autoreconf: true
+  #       buildoptions: ''
+  #     depname: patchelf-0.9
+  #     source:
+  #       type: bz2
+  #       url: https://nixos.org/releases/patchelf/patchelf-0.9/patchelf-0.9.tar.bz2
   - cpan:
       build:
         buildsystem: custom
