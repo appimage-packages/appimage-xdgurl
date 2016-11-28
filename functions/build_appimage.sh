@@ -2,6 +2,7 @@
 
 # Run linuxdeployqt to bring in proper libs
 find $HOME/build-*-*_Qt_* \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or -name "Makefile*" -or -name "*.a" \) -exec rm {} \;
+mkdir /xdgurl.AppDir/
 mv /app/usr /xdgurl.AppDir/usr
 cp   /xdgurl.AppDir/usr/share/applications/xdgurl.desktop .
 cp  /xdgurl.AppDir/usr/share/icons/hicolor/scalable/apps/xdgurl.svg .

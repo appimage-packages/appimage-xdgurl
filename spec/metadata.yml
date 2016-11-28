@@ -23,16 +23,8 @@ frameworks:
 type: git
 url: https://github.com/xdgurl/xdgurl
 buildsystem: qmake
-buildoptions: "qmake PREFIX=/usr xdgurl.pro"
+buildoptions: "qmake PREFIX=/app/usr xdgurl.pro"
 dependencies:
-  - appimage:
-      build:
-        buildsystem: custom
-        buildoptions: /in/functions/build_appimage.sh
-      depname: AppImageKit
-      source:
-        type: git
-        url: https://github.com/appimage-packages/AppImageKit
   - libffi:
       build:
         buildsystem: make
