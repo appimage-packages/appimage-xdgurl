@@ -166,7 +166,6 @@ class Recipe
 
   def generate_appimage(args = {})
     Dir.chdir("/") do
-      system("cp -rfv /app/usr /xdgurl.AppDir")
       system('/in/functions/build_appimage.sh')
     end
     $?.exitstatus
