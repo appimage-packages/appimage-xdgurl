@@ -53,8 +53,8 @@ class Recipe
   def clean_workspace(args = {})
     return if Dir['/app/'].empty?
     FileUtils.rm_rf("/app/.", secure: true)
-    return if Dir['/out/'].empty?
-    FileUtils.rm_rf("/out/.", secure: true)
+    return if Dir['/appimage/'].empty?
+    FileUtils.rm_rf("/appimage/.", secure: true)
   end
 
   def install_packages(args = {})

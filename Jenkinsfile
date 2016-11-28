@@ -27,9 +27,6 @@ node('linux') {
 
     try {
 
-        stage( 'Preclean' ) {
-            deleteDir()
-        }        
         stage( 'Checkout' ) {
             checkout scm
        }
@@ -40,9 +37,7 @@ node('linux') {
         stage( 'Build' ) {
             sh 'bundle exec deploy.rb'
        }
-        stage( 'Clean' ) {
-             sh 'rm -rfv $HOME/sources/xdgurl/app'
-      }
+             
    }
 
 
