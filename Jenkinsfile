@@ -29,19 +29,18 @@ node('linux') {
 
         stage( 'Preclean' ) {
             deleteDir()
-        }
-
-       stage( 'Checkout' ) {
+        }        
+        stage( 'Checkout' ) {
             checkout scm
        }
-       stage( 'Setup' ) {
+        stage( 'Setup' ) {
             sh 'bundle install'
             def WORKSPACE=pwd()
-      }
-       stage( 'Build' ) {
+        }
+        stage( 'Build' ) {
             sh 'bundle exec deploy.rb'
-      }
-      stage( 'Clean' ) {
+       }
+        stage( 'Clean' ) {
              sh 'rm -rfv $HOME/sources/xdgurl/app'
       }
    }

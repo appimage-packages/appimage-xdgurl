@@ -5,6 +5,8 @@
 # ./build.sh
 
 # Until this repo stabilizes we will use the appimage.
+# Build AppImageKit
+mkdir /AppImageKit
+cd /AppImageKit
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
-mv appimagetool-x86_64.AppImage /app/
