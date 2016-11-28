@@ -28,11 +28,12 @@ require 'logger/colors'
 class CI
   # Container creation and run
   class Build
-    def initialize()
+    def initialize(name, home = '/home/jenkins/workspace')
       @image = ''
       @c = ''
       @binds = ''
-      @cmd
+      @name = name
+      @home = home
     end
   end
   def init_logging
@@ -61,10 +62,10 @@ class CI
       },
       'HostConfig' => {
         'Binds' => [
-          '/home/jenkins/workspace/pipeline-xdgurl-appimage/out:/out',
-          '/home/jenkins/workspace/pipeline-xdgurl-appimage:/in',
-          '/home/jenkins/workspace/pipeline-xdgurl-appimage/app:/app',
-          '/home/jenkins/workspace/pipeline-xdgurl-appimage/appimage:/appimage',
+          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/out:/out',
+          @home.to_s + '/pipeline-' + @name.to_s + '-appimage:/in',
+          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/app:/app',
+          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/appimage:/appimage',
           '/tmp:/tmp'
         ],
         'UsernsMode' => 'host',
