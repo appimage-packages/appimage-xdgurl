@@ -218,7 +218,7 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
-      File.write('/in/build_appimage', ERB.new(File.read('/in/libs/build_appimage.erb')).result(binding))
+      File.write('/in/Recipe', app.render)
       expect(app.generate_appimage()).to eq 0
       expect(File.exist?("/appimage/*.AppImage")).to be(true), "Something went wrong, no AppImage"
       app.clean_workspace

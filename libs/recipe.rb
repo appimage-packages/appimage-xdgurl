@@ -163,10 +163,13 @@ class Recipe
   #     $?.exitstatus
   #   end
   # end
+  def render
+    ERB.new(File.read('/in/libs/Recipe.erb')).result(binding)
+  end
 
   def generate_appimage(args = {})
     Dir.chdir("/") do
-      system('/bin/bash -xe /in/build_appimage')
+      system('/bin/bash -xe /in/Recipe')
     end
     $?.exitstatus
   end
