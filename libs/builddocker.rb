@@ -58,8 +58,8 @@ class CI
       'Volumes' => {
         '/in' => {},
         '/out' => {},
-        'app' => {},
-        'appimage' => {},
+        '/app' => {},
+        '/appimage' => {},
         '/lib/modules' => {},
         '/tmp' => {}
       },
