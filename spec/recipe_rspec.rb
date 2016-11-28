@@ -214,12 +214,12 @@ describe Recipe do
 #       expect(app.delete_blacklisted()).to be(0), " Expected 0 exit Status"
 #     end
 #   end
-#
+
   describe 'generate_appimage' do
-     it 'Generate the appimage' do
-       expect(app.generate_appimage()).to eq 0
-       expect(File.exist?("/out/*.AppImage")).to be(true), "Something went wrong, no AppImage"
-       app.clean_workspace
-     end
-   end
-# end
+    it 'Generate the appimage' do
+      expect(app.generate_appimage()).to eq 0
+      expect(File.exist?("/out/*.AppImage")).to be(true), "Something went wrong, no AppImage"
+      app.clean_workspace
+    end
+  end
+end
