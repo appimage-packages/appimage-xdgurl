@@ -5,8 +5,8 @@ find $HOME/build-*-*_Qt_* \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or
 cd /
 mkdir /xdgurl.AppDir/
 mv /app/usr /xdgurl.AppDir/usr
-cp  -v  /xdgurl.AppDir/usr/share/applications/xdgurl.desktop .
-cp  -v /xdgurl.AppDir/usr/share/icons/hicolor/scalable/apps/xdgurl.svg .
+cp  -v  /xdgurl.AppDir/usr/share/applications/xdgurl.desktop /xdgurl.AppDir
+cp  -v /xdgurl.AppDir/usr/share/icons/hicolor/scalable/apps/xdgurl.svg /xdgurl.AppDir
 wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
