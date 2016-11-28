@@ -1,13 +1,16 @@
 #!/bin/bash
-# sed -i -e 's|archive3.h|archive.h|g' ./shared.c
-# sed -i -e 's|archive_entry3.h|archive_entry.h|g' ./shared.c
-# sed -i -e 's|-larchive3|-larchive|g' ./build.sh
-# ./build.sh
+
+# Run linuxdeployqt to bring in proper libs
+find $HOME/build-*-*_Qt_* \( -name "moc_*" -or -name "*.o" -or -name "qrc_*" -or -name "Makefile*" -or -name "*.a" \) -exec rm {} \;
+
+wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
+chmod a+x linuxdeployqt-1-x86_64.AppImage
+
+DESTIDIR=/xdgurl.AppDir ./linuxdeployqt-1-x86_64.AppImage /xdgurl.AppDir/usr/bin/xdgurl
 
 # Until this repo stabilizes we will use the appimage.
 # Build AppImageKit
-mkdir /AppImageKit
-cd /AppImageKit
+
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
 

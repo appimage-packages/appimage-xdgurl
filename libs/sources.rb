@@ -128,13 +128,13 @@ class Sources
         p "running qmake #{options}"
         system('echo $PATH')
         system("#{options}")
-        system('make -j 8 && sudo make install')
+        system('make -j 8 && make install')
       end
     when 'bootstrap'
       Dir.chdir("/app/src/#{name}") do
         p "running ./bootstrap #{options}"
         system("./bootstrap #{options}")
-        system('make -j 8 && sudo make install')
+        system('make -j 8 && make install')
       end
     else
     "You gave me #{buildsystem} -- I have no idea what to do with that."
