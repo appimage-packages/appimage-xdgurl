@@ -65,11 +65,10 @@ class CI
       },
       'HostConfig' => {
         'Binds' => [
-          home.to_s + '/pipeline-' + name.to_s + '-appimage/out:/out',
-          '/home/jenkins/workspace/pipeline-xdgurl-appimage:/in',
-          home.to_s + '/pipeline-' + name.to_s + '-appimage/app:/app',
-          home.to_s + '/pipeline-' + name.to_s + '-appimage/appimage:/appimage',
-
+          "#{home}/pipeline-#{name}-appimage/out:/out",
+          "#{home}/pipeline-#{name}-appimage:/in",
+          "#{home}/pipeline-#{name}-appimage/app:/app",
+          "#{home}/pipeline-#{name}-appimage/appimage:/appimage"
         ],
         'UsernsMode' => 'host',
         'Privileged' => true,
