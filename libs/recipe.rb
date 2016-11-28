@@ -163,10 +163,10 @@ class Recipe
   #     $?.exitstatus
   #   end
   # end
-  
+
   def generate_appimage(args = {})
     Dir.chdir("/") do
-      system('/bin/bash /in/build_appimage')
+      system('/bin/bash -xe /in/build_appimage')
     end
     $?.exitstatus
   end
