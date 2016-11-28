@@ -66,7 +66,7 @@ class CI
       'HostConfig' => {
         'Binds' => [
           home.to_s + '/pipeline-' + name.to_s + '-appimage/out:/out',
-          home.to_s + '/pipeline-' + name.to_s + '-appimage:/in',
+          '/home/jenkins/workspace/pipeline-xdgurl-appimage:/in',
           home.to_s + '/pipeline-' + name.to_s + '-appimage/app:/app',
           home.to_s + '/pipeline-' + name.to_s + '-appimage/appimage:/appimage',
 
