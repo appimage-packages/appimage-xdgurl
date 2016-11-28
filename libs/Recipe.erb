@@ -34,8 +34,8 @@ DESTIDIR=/<%= name %>.AppDir ./linuxdeployqt-1-x86_64.AppImage /<%= name %>.AppD
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
 
-VERSION=<%= version %>
+VERSION=16.12.0
 ARCH=$(arch)
-APP=<%= name %>
+APP=xdgurl
 
 ./appimagetool-x86_64.AppImage /xdgurl.AppDir /appimage/$APP_$VERSION_$ARCH.AppImage
