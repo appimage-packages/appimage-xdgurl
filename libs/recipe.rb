@@ -168,8 +168,8 @@ class Recipe
   end
 
   def generate_appimage(args = {})
-    Dir.chdir("/") do      
-      system('/bin/bash /in/libs/build_appimage')
+    Dir.chdir("/") do
+      system('/bin/bash /in/build_appimage')
     end
     $?.exitstatus
   end
