@@ -166,19 +166,19 @@ describe Recipe do
   #   end
   # end
   #
-  describe 'copy_icon' do
-    it 'Retrieves a suitable icon for integration' do
-      expect(app.copy_icon(icon: 'emblem-web.png', iconpath:  '/usr/share/icons/gnome/48x48/emblems/')).to be(0), " Expected 0 exit Status"
-      expect(File.exist?("/app/#{app.icon}")).to be(true), "Icon does not exist, things will fail"
-    end
-  end
+  # describe 'copy_icon' do
+  #   it 'Retrieves a suitable icon for integration' do
+  #     expect(app.copy_icon(icon: 'emblem-web.png', iconpath:  '/usr/share/icons/gnome/48x48/emblems/')).to be(0), " Expected 0 exit Status"
+  #     expect(File.exist?("/app/#{app.icon}")).to be(true), "Icon does not exist, things will fail"
+  #   end
+  # end
 
-  describe 'run linuxdeployqt' do
-     it 'Copies lib dependencies generated with ldd' do
-      expect(app.run_linuxdeployqt()).to be(0), " Expected 0 exit Status"
-     end
-   end
- end
+ #  describe 'run linuxdeployqt' do
+ #     it 'Copies lib dependencies generated with ldd' do
+ #      expect(app.run_linuxdeployqt()).to be(0), " Expected 0 exit Status"
+ #     end
+ #   end
+ # end
 #
 #   describe 'run_integration' do
 #     it 'Runs desktop integration to prepare app wrapper' do
