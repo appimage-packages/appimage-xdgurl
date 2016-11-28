@@ -58,15 +58,18 @@ class CI
       'Volumes' => {
         '/in' => {},
         '/out' => {},
-        '/lib/modules' => {}
+        'app' => {},
+        'appimage' => {},
+        '/lib/modules' => {},
+        '/tmp' => {}
       },
       'HostConfig' => {
         'Binds' => [
-          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/out:/out',
-          @home.to_s + '/pipeline-' + @name.to_s + '-appimage:/in',
-          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/app:/app',
-          @home.to_s + '/pipeline-' + @name.to_s + '-appimage/appimage:/appimage',
-          '/tmp:/tmp'
+          home.to_s + '/pipeline-' + name.to_s + '-appimage/out:/out',
+          home.to_s + '/pipeline-' + name.to_s + '-appimage:/in',
+          home.to_s + '/pipeline-' + name.to_s + '-appimage/app:/app',
+          home.to_s + '/pipeline-' + name.to_s + '-appimage/appimage:/appimage',
+
         ],
         'UsernsMode' => 'host',
         'Privileged' => true,
