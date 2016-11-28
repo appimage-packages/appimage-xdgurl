@@ -94,15 +94,15 @@ class Recipe
     #end
   #end
 
-  def copy_icon(args = {})
-    self.icon = args[:icon]
-    self.iconpath = args[:iconpath]
-    Dir.chdir('/app') do
-      system("cp #{iconpath}#{icon} /app/")
-      system("sed -i -e 's|Icon=.*|Icon=#{icon}|g' #{desktop}.desktop")
-      $?.exitstatus
-    end
-  end
+  # def copy_icon(args = {})
+  #   self.icon = args[:icon]
+  #   self.iconpath = args[:iconpath]
+  #   Dir.chdir('/app') do
+  #     system("cp #{iconpath}#{icon} /app/")
+  #     system("sed -i -e 's|Icon=.*|Icon=#{icon}|g' #{desktop}.desktop")
+  #     $?.exitstatus
+  #   end
+  # end
 
   # def run_integration()
   #     system('git clone "https://github.com/probonopd/AppImageKit"')
