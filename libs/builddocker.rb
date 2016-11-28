@@ -28,12 +28,12 @@ require 'logger/colors'
 class CI
   # Container creation and run
   class Build
-    def initialize(name, home = '/home/jenkins/workspace')
+    def initialize(name)
       @image = ''
       @c = ''
       @binds = ''
       @name = name
-      @home = home
+      @home = '/home/jenkins/workspace'
     end
   end
   def init_logging
@@ -50,7 +50,7 @@ class CI
   Docker.options[:read_timeout] = 2 * 60 * 60 # 2 hours
   Docker.options[:write_timeout] = 2 * 60 * 60 # 2 hours
 
-  def create_container
+  def create_container(name, home = @home)
     init_logging
     @c = Docker::Container.create(
       'Image' => 'sgclark/trusty-qt57',
