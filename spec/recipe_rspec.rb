@@ -21,6 +21,7 @@
 require_relative '../libs/recipe'
 require_relative '../libs/sources'
 require 'yaml'
+require 'erb'
 
 metadata = YAML.load_file("/in/spec/metadata.yml")
 deps = metadata['dependencies']
@@ -217,7 +218,7 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
-      File.write('build_appimage', app.render)
+      File.write('/in/build_appimage', ERB.new(File.read('/in/libs/build_appimage.erb')).result(binding))
       expect(app.generate_appimage()).to eq 0
       expect(File.exist?("/appimage/*.AppImage")).to be(true), "Something went wrong, no AppImage"
       app.clean_workspace
