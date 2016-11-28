@@ -168,8 +168,7 @@ class Recipe
   end
 
   def generate_appimage(args = {})
-    Dir.chdir("/") do
-      File.write('build_appimage', app.render)
+    Dir.chdir("/") do      
       system('/bin/bash /in/libs/build_appimage')
     end
     $?.exitstatus
