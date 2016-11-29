@@ -26,7 +26,7 @@ cp  -v /<%= name %>.AppDir/usr/share/icons/hicolor/scalable/apps/<%= name %>.svg
 wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
-DESTIDIR=/<%= name %>.AppDir ./linuxdeployqt-1-x86_64.AppImage -verbose=3 -bundle-non-qt-libs /<%= name %>.AppDir/usr/bin/<%= name %>
+DESTIDIR=/<%= name %>.AppDir ./linuxdeployqt-1-x86_64.AppImage /<%= name %>.AppDir/usr/bin/<%= name %> -verbose=3 -bundle-non-qt-libs 
 
 # Until this repo stabilizes we will use the appimage.
 # Build AppImageKit
