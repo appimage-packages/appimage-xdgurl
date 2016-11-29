@@ -19,10 +19,10 @@
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
 cd /
+./functions.sh
 mkdir /<%= name %>.AppDir/
 
-wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
-chmod a+x linuxdeployqt-1-x86_64.AppImage
+
 
 cd /<%= name %>.AppDir
 mkdir -p ./usr/bin; mv /app/usr/bin/*<%= name %>* $_
@@ -36,6 +36,7 @@ mkdir -p ./usr/share/icons/hicolor/scalable/apps; mv /app/usr/share/icons/hicolo
 # For some reason qmlscanner did not catch Dialog, manually copy it in.
 mkdir -p ./usr/bin/qml/QtQuick/Dialogs; cp -rfv /opt/usr/qml/QtQuick/Dialogs/* $_
 
+
 ls -l
 glibc_needed
 patch_usr
@@ -43,14 +44,8 @@ get_apprun
 delete_blacklisted
 get_desktopintegration <%= name %>
 
-# Until this repo stabilizes we will use the appimage.
-# Build AppImageKit
-
-wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-chmod a+x appimagetool-x86_64.AppImage
-
 VERSION=16.12.0
 ARCH=$(arch)
 APP=xdgurl
 
-./appimagetool-x86_64.AppImage /xdgurl.AppDir /appimage/<%= name %>-<%= version %>-$ARCH.AppImage
+../appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/<%= name %>-<%= version %>-$ARCH.AppImage

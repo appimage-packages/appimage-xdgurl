@@ -21,6 +21,7 @@ export PATH=/opt/usr/bin:/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/shims:$PA
 export WORKSPACE=`pwd`
 echo $WORKSPACE
 wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
-. ./functions.sh
-rm -f functions.sh
+wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
+chmod a+x linuxdeployqt-1-x86_64.AppImage
+
 cd /in && bundle install && rspec spec/recipe_rspec.rb --fail-fast
