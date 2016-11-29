@@ -218,9 +218,10 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
+      arch = `arch`
       File.write('/in/Recipe', app.render)
       expect(app.generate_appimage()).to eq 0
-      expect(File.exist?("/appimage/*.AppImage")).to be(true), "Something went wrong, no AppImage"
+      expect(File.exist?("/appimage/#{name}-#{version}-#{arch}.AppImage")).to be(true), "Something went wrong, no AppImage"
       app.clean_workspace
     end
   end
