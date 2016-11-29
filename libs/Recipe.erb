@@ -29,9 +29,12 @@ wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployq
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
 cd /<%= name %>.AppDir
-mv  /app/usr/bin/xdgurl ./usr/bin/xdgurl
-mv /app/src/xdgurl/src/desktop/xdgurl.desktop ./usr/share/applications/
-mv /app/src/xdgurl/src/desktop/xdgurl.svg ./usr/share/icons/hicolor/scalable/apps/
+mkdir -p ./usr/bin; mv /app/usr/bin/*<%= name %>* $_
+cp /app/usr/share/applications/*<%= name %>* .
+mkdir -p ./usr/share/applications/; mv /app/usr/share/applications/*<%= name %>*.desktop $_
+cp /app/usr/share/icons/hicolor/scalable/apps/*<%= name %>* .
+mkdir -p ./usr/share/icons/hicolor/scalable/apps; mv /app/usr/share/icons/hicolor/scalable/apps/*<%= name %>* $_
+
 ../linuxdeployqt-1-x86_64.AppImage ./usr/bin/<%= name %> -verbose=3 -bundle-non-qt-libs
 ls -l
 glibc_needed
