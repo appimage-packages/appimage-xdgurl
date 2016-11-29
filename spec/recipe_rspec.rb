@@ -203,13 +203,15 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
-      app.set_version()
+      version = app.set_version()
       arch = `arch`
-      appfullname = "#{app.name}-#{app.version}-#{arch}.AppImage"
+      appfullname = "#{app.name}-#{version}-#{arch}.AppImage"
       p appfullname
       File.write('/in/Recipe', app.render)
       expect(app.generate_appimage()).to eq 0
-      expect(File.exist?("/appimage/xdgurl-1.0-x86_64.AppImage")).to be(true), "Something went wrong, no AppImage"      
+      expect(File.exist?("/appimage/xdgurl-1.0-x86_64.AppImage")).to be(true), "Something went wrong, no AppImage"
+      `rm -rfv /app/*`
+      expect(Dir["/app/*"].empty?).to be(true), "Please clean up"
     end
   end
 end
