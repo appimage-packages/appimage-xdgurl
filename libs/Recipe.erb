@@ -18,15 +18,26 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
+wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
+. ./functions.sh
+rm -f functions.sh
+
 cd /
 mkdir /<%= name %>.AppDir/
 
-cp  -v  /app/usr/share/applications/<%= name %>.desktop /<%= name %>.AppDir
-cp  -v /app/usr/share/icons/hicolor/scalable/apps/<%= name %>.svg /<%= name %>.AppDir
 wget https://github.com/probonopd/linuxdeployqt/releases/download/1/linuxdeployqt-1-x86_64.AppImage
 chmod a+x linuxdeployqt-1-x86_64.AppImage
 
 DESTIDIR=/<%= name %>.AppDir ./linuxdeployqt-1-x86_64.AppImage /app/usr/bin/<%= name %> -verbose=3 -bundle-non-qt-libs
+
+
+cd /<%= name %>.AppDir
+
+glibc_needed()
+patch_usr()
+get_apprun()
+delete_blacklisted
+get_desktopintegration <%= name %>
 
 # Until this repo stabilizes we will use the appimage.
 # Build AppImageKit
