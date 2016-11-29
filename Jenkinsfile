@@ -37,7 +37,11 @@ node('linux') {
         stage( 'Build' ) {
             sh 'bundle exec deploy.rb'
        }
-             
+       stage( 'Clean' ) {
+            sh 'sudo rm -rfv app/*'
+      }
+
+
    }
 
 
