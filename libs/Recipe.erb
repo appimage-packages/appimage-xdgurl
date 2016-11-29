@@ -33,9 +33,9 @@ DESTIDIR=/<%= name %>.AppDir ./linuxdeployqt-1-x86_64.AppImage /app/usr/bin/<%= 
 
 cd /<%= name %>.AppDir
 
-glibc_needed()
-patch_usr()
-get_apprun()
+glibc_needed
+patch_usr
+get_apprun
 delete_blacklisted
 get_desktopintegration <%= name %>
 
