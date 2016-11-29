@@ -45,8 +45,8 @@ mkdir -p ./usr/bin/qml/QtQuick/Dialogs; cp -rfv /opt/usr/qml/QtQuick/Dialogs/* $
 ls -l
 glibc_needed
 patch_usr
-get_apprun
 delete_blacklisted
+get_apprun
 get_desktopintegration <%= name %>
 
 # Until this repo stabilizes we will use the appimage.
@@ -54,9 +54,5 @@ get_desktopintegration <%= name %>
 
 wget "https://github.com/probonopd/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 chmod a+x appimagetool-x86_64.AppImage
-
-VERSION=16.12.0
-ARCH=$(arch)
-APP=xdgurl
 
 ./appimagetool-x86_64.AppImage /<%= name %>.AppDir /appimage/<%= name %>-<%= version %>-$ARCH.AppImage

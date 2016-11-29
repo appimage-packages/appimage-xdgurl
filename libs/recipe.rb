@@ -46,8 +46,6 @@ class Recipe
     self.name = args[:name]
     self.arch = `arch`
     self.install_path = '/app/usr'
-    # self.app_dir = "/app/#{name}.AppDir"
-    # Dir.mkdir("#{app_dir}")
   end
 
   def clean_workspace(args = {})
@@ -81,88 +79,6 @@ class Recipe
     end
   end
 
-    # def gather_integration(args = {})
-    # self.desktop = args[:desktop]
-    # Dir.chdir('/app') do
-    #   system("cp ./usr/share/applications/#{desktop}.desktop /app/usr/lib/firefox-48.0/")
-    #   # if File.readlines("/app/#{desktop}.desktop").grep(/Icon/).empty?
-    #   #   system("echo 'Icon=' >> /app/#{desktop}.desktop")
-    #   # end
-    #   # system("sed -i -e 's|Exec=.*|Exec=#{name}|g' #{desktop}.desktop")
-    #   $?.exitstatus
-
-    #end
-  #end
-
-  # def copy_icon(args = {})
-  #   self.icon = args[:icon]
-  #   self.iconpath = args[:iconpath]
-  #   Dir.chdir('/app') do
-  #     system("cp #{iconpath}#{icon} /app/")
-  #     system("sed -i -e 's|Icon=.*|Icon=#{icon}|g' #{desktop}.desktop")
-  #     $?.exitstatus
-  #   end
-  # end
-
-  # def run_integration()
-  #     system('git clone "https://github.com/probonopd/AppImageKit"')
-  #     Dir.chdir("/AppImageKit") do
-  #       system('cp --force /in/functions/AppRun AppImageAssistant.AppDir/AppRun')
-  #       system('./build.sh')
-  #     end
-  #     system('cp /AppImageKit/out/AppRun* /app/AppRun')
-  #     system('cp /AppImageKit/out/AppImageAssistant* /app/AppImageAssistant')
-  #     system('chmod +x AppRun' )
-  #     Dir.chdir('/app') do
-  #       system("/bin/bash -xe /in/functions/desktop_integration.sh  #{name}")
-  #     end
-  #     $?.exitstatus
-  # end
-
-  # def copy_dependencies(args = {})
-  #   Dir.chdir("/app") do
-  #     system("cp -rfv * #{app_dir}")
-  #   end
-  #   Dir.chdir("#{app_dir}") do
-  #     self.dep_path = args[:dep_path]
-  #     dep_path.each do |dep|
-  #       system("cp --parents -rfv #{dep} .")
-  #     end
-  #   end
-  #   $?.exitstatus
-  # end
-
-  # def copy_libs(args = {})
-  #   Dir.chdir("#{app_dir}") do
-  #     system("/bin/bash -xe /in/functions/copy_libs.sh")
-  #     $?.exitstatus
-  #   end
-  #end
-
-  # def run_linuxdeployqt(args = {})
-  #   ENV.fetch('PATH')
-  #   ENV.fetch('LD_LIBRARY_PATH')
-  #   Dir.chdir("#{app_dir}") do
-  #     system('cp /app/src/AppImageKit/AppImage* /app/usr/bin')
-  #     #  -executable=/app/usr/lib/firefox-48.0/kmozillahelper   -no-strip
-  #     system('strace -c /app/linuxdeployqt /app/usr/bin/xdgurl -appimage -verbose=3 -always-overwrite -no-strip')
-  #     $?.exitstatus
-  #   end
-  # end
-
-  # def move_lib(args = {})
-  #   Dir.chdir("#{app_dir}") do
-  #     system("/bin/bash -xe /in/functions/move_libs.sh")
-  #     $?.exitstatus
-  #   end
-  # end
-
-  # def delete_blacklisted(args = {})
-  #   Dir.chdir("#{app_dir}") do
-  #     system("/bin/bash -xe /in/functions/delete_blacklisted.sh")
-  #     $?.exitstatus
-  #   end
-  # end
   def render
     ERB.new(File.read('/in/libs/Recipe.erb')).result(binding)
   end

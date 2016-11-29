@@ -142,65 +142,6 @@ describe Recipe do
         end
     end
 
-  # describe 'gather_integration' do
-  #   it 'Gather and adjust desktop file' do
-  #     name = app.name
-  #     p name
-  #     expect(app.gather_integration(desktop: 'firefox')).to be(0), " Expected 0 exit Status"
-  #     expect(File.exist?("/app/firefox.desktop")).to be(true), "Desktop file does not exist, things will fail"
-  #     #expect(File.readlines("/app/firefox.desktop").grep(/Icon/).size > 0).to be(true), "No Icon entry in desktop file will fail this operation."
-  #   end
-  # end
-  #
-  # describe 'copy_icon' do
-  #   it 'Retrieves a suitable icon for integration' do
-  #     expect(app.copy_icon(icon: 'emblem-web.png', iconpath:  '/usr/share/icons/gnome/48x48/emblems/')).to be(0), " Expected 0 exit Status"
-  #     expect(File.exist?("/app/#{app.icon}")).to be(true), "Icon does not exist, things will fail"
-  #   end
-  # end
-
- #  describe 'run linuxdeployqt' do
- #     it 'Copies lib dependencies generated with ldd' do
- #      expect(app.run_linuxdeployqt()).to be(0), " Expected 0 exit Status"
- #     end
- #   end
- # end
-#
-#   describe 'run_integration' do
-#     it 'Runs desktop integration to prepare app wrapper' do
-#       expect(app.run_integration()).to be(0), " Expected 0 exit Status"
-#       expect(File.exist?("/app/usr/bin/#{app.name}.wrapper")).to be(true), "Icon does not exist, things will fail"
-#       expect(File.exist?("/app/AppRun")).to be(true), "AppRun missing, things will fail"
-#     end
-#   end
-#
-#   describe 'copy_dependencies' do
-#     it 'Copies over system installed dependencies' do
-#       expect(app.copy_dependencies(dep_path: metadata['dep_path'])).to be(0), " Expected 0 exit Status"
-#       expect(File.exist?("/#{app.app_dir}/#{app.desktop}.desktop")).to be(true), "Desktop file does not exist, things will fail"
-#       expect(File.exist?("/#{app.app_dir}/#{app.icon}")).to be(true), "Icon does not exist, things will fail"
-#     end
-#   end
-#
-#   describe 'copy_libs' do
-#     it 'Copies lib dependencies generated with ldd' do
-#       expect(app.copy_libs()).to be(0), " Expected 0 exit Status"
-#     end
-#   end
-#
-#   describe 'move_lib' do
-#     it 'Moves /lib to ./usr/lib where appimage expects them' do
-#       app.move_lib
-#       expect(Dir["/#{app.app_dir}/lib/*"].empty?).to be(true), "Files still in lib, move them to usr"
-#     end
-#   end
-#
-#   describe 'delete_blacklisted' do
-#     it 'Deletes blacklisted libraries' do
-#       expect(app.delete_blacklisted()).to be(0), " Expected 0 exit Status"
-#     end
-#   end
-
   describe 'generate_appimage' do
     it 'Generate the appimage' do
       version = app.set_version()
