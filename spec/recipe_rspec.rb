@@ -142,21 +142,6 @@ describe Recipe do
         end
     end
 
-  def set_version(args = {})
-    self.type = args[:type]
-    self.url = args[:url]
-    p "#{type}"
-    Dir.chdir("/app/src/#{name}") do
-      if  "#{type}" == 'git'
-        self.version = `git describe`.chomp.gsub("release-", "").gsub(/-g.*/, "")
-        p "#{version}"
-      else
-        self.version = "#{url}".chomp.("(^[\d.]+)")
-      end
-    end
-  end
-
-
   # describe 'gather_integration' do
   #   it 'Gather and adjust desktop file' do
   #     name = app.name
@@ -218,6 +203,7 @@ describe Recipe do
 
   describe 'generate_appimage' do
     it 'Generate the appimage' do
+      app.set_version()
       arch = `arch`
       File.write('/in/Recipe', app.render)
       expect(app.generate_appimage()).to eq 0
