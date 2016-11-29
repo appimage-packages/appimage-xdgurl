@@ -20,4 +20,7 @@
 export PATH=/opt/usr/bin:/home/jenkins/.rbenv/bin:/home/jenkins/.rbenv/shims:$PATH
 export WORKSPACE=`pwd`
 echo $WORKSPACE
+wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
+. ./functions.sh
+rm -f functions.sh
 cd /in && bundle install && rspec spec/recipe_rspec.rb --fail-fast

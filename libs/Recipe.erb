@@ -18,10 +18,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library.  If not, see <http://www.gnu.org/licenses/>.
 
-wget -q https://github.com/probonopd/AppImages/raw/master/functions.sh -O ./functions.sh
-. ./functions.sh
-rm -f functions.sh
-
 cd /
 mkdir /<%= name %>.AppDir/
 
@@ -38,7 +34,7 @@ mkdir -p ./usr/share/icons/hicolor/scalable/apps; mv /app/usr/share/icons/hicolo
 ../linuxdeployqt-1-x86_64.AppImage ./usr/bin/<%= name %> -verbose=3 -bundle-non-qt-libs -qmldir=/opt/usr/qml
 
 # For some reason qmlscanner did not catch Dialog, manually copy it in.
-mkdir -p ./usr/qml/QtQuick/Dialogs; cp -rfv /opt/usr/qml/QtQuick/Dialogs/* $_
+mkdir -p ./usr/bin/qml/QtQuick/Dialogs; cp -rfv /opt/usr/qml/QtQuick/Dialogs/* $_
 
 ls -l
 glibc_needed
